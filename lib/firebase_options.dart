@@ -63,6 +63,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '834363154845',
     projectId: 'to-do-235a3',
     storageBucket: 'to-do-235a3.appspot.com',
-    iosBundleId: 'com.example.toDo',
+    iosBundleId: 'com.mateuszkasprzak.toDo',
   );
 }
