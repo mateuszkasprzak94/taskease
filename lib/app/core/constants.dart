@@ -6,3 +6,6 @@ const kPrimaryGradient = [
   Color.fromARGB(255, 102, 95, 202),
   Color.fromARGB(255, 98, 91, 196),
 ];
+
+const kHintColor = Color.fromARGB(255, 48, 65, 223);
+const kButtonBorder = Color.fromARGB(255, 44, 60, 211);

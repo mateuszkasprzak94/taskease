@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/app/core/constants.dart';
-import 'package:to_do/app/features/pages/login_page/login_page.dart';
 
 class CustomLoginButton extends StatelessWidget {
   const CustomLoginButton({
+    required this.onTap,
     super.key,
   });
+
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => const LoginPage(),
-          ),
-        );
-      },
+      onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
               offset: const Offset(3, 3),
-              blurRadius: 3,
+              blurRadius: 1,
               color: Colors.black.withOpacity(0.3),
             ),
           ],
