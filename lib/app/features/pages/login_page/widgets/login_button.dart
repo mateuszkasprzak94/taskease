@@ -4,10 +4,12 @@ import 'package:to_do/app/core/constants.dart';
 class CustomLoginButton extends StatelessWidget {
   const CustomLoginButton({
     required this.onTap,
+    required this.title,
     super.key,
   });
 
   final VoidCallback onTap;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +33,10 @@ class CustomLoginButton extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.all(12),
         margin: const EdgeInsets.symmetric(horizontal: 60),
-        child: const Center(
+        child: Center(
           child: Text(
-            'LOGIN',
-            style: TextStyle(
+            title,
+            style: const TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),
           ),
         ),

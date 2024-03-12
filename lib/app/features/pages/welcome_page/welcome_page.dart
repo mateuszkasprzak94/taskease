@@ -55,6 +55,7 @@ class WelcomePage extends StatelessWidget {
                   ),
                 );
               },
+              title: 'LOGIN',
             ),
             const SizedBox(height: 15),
             const CustomSignUpButton(),

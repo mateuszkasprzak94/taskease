@@ -71,9 +71,10 @@ class _LoginPageState extends State<LoginPage> {
                 Text(
                   'Login to your account',
                   style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.white.withOpacity(0.50),
-                      fontWeight: FontWeight.w600),
+                    fontSize: 15,
+                    color: Colors.white.withOpacity(0.50),
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 LoginTextFieldWidget(
@@ -145,6 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     );
                   },
+                  title: 'LOGIN',
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -159,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (_) => const RegisterPage(),
+                            builder: (_) => RegisterPage(),
                           ),
                         );
                       },
