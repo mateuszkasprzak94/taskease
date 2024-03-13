@@ -32,6 +32,7 @@ class RegisterTextField extends StatelessWidget {
           ],
         ),
         child: TextField(
+          obscureText: true,
           keyboardType: TextInputType.emailAddress,
           controller: registerController,
           decoration: InputDecoration(
@@ -43,12 +44,6 @@ class RegisterTextField extends StatelessWidget {
               icon,
               color: kHintColor,
             ),
-            suffixIcon: registerController.text.isEmpty
-                ? Container(width: 0)
-                : IconButton(
-                    onPressed: () => registerController.clear(),
-                    icon: const Icon(Icons.close, color: kHintColor),
-                  ),
             hintText: hintText,
             filled: true,
             fillColor: Colors.white,
