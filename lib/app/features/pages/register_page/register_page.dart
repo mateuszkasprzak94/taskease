@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do/app/app.dart';
 import 'package:to_do/app/core/constants.dart';
 import 'package:to_do/app/core/enums.dart';
 import 'package:to_do/app/cubit/auth_cubit.dart';
@@ -133,13 +134,11 @@ class _RegisterPageState extends State<RegisterPage> {
                     CustomLoginButton(
                       onTap: () {
                         context.read<AuthCubit>().register(
-                            widget.emailController.text,
-                            widget.passwordController.text);
-                        // Navigator.of(context).push(
-                        //   MaterialPageRoute(
-                        //     builder: (_) => const Auth(),
-                        //   ),
-                        // );
+                              widget.emailController.text,
+                              widget.passwordController.text,
+                              context,
+                              navigatorKey,
+                            );
                       },
                       title: 'REGISTER',
                     ),

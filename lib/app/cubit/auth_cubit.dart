@@ -18,12 +18,24 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> register(
     String emailController,
     String passwordController,
+    BuildContext context,
+    GlobalKey<NavigatorState> navigatorKey,
   ) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.trim(),
         password: passwordController.trim(),
       );
+      navigatorKey.currentState!.pushReplacement(MaterialPageRoute(
+        builder: (context) => const MainPage(),
+      ));
     } catch (error) {
       emit(
         AuthState(
@@ -35,8 +47,12 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> signIn(String emailController, String passwordController,
-      BuildContext context, GlobalKey<NavigatorState> navigatorKey) async {
+  Future<void> signIn(
+    String emailController,
+    String passwordController,
+    BuildContext context,
+    GlobalKey<NavigatorState> navigatorKey,
+  ) async {
     showDialog(
       context: context,
       barrierDismissible: false,
