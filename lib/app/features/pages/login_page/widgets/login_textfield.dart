@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/app/core/constants.dart';
-import 'package:to_do/app/features/pages/login_page/login_page.dart';
 
 class LoginTextFieldWidget extends StatelessWidget {
   const LoginTextFieldWidget({
     super.key,
-    required this.widget,
+    required this.controller,
     required this.hintText,
     required this.icon,
   });
 
-  final LoginPage widget;
+  final TextEditingController controller;
   final String hintText;
   final IconData icon;
 
@@ -31,7 +30,7 @@ class LoginTextFieldWidget extends StatelessWidget {
         ),
         child: TextField(
           keyboardType: TextInputType.emailAddress,
-          controller: widget.emailController,
+          controller: controller,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
@@ -41,10 +40,10 @@ class LoginTextFieldWidget extends StatelessWidget {
               icon,
               color: kHintColor,
             ),
-            suffixIcon: widget.emailController.text.isEmpty
+            suffixIcon: controller.text.isEmpty
                 ? Container(width: 0)
                 : IconButton(
-                    onPressed: () => widget.emailController.clear(),
+                    onPressed: () => controller.clear(),
                     icon: const Icon(Icons.close, color: kHintColor),
                   ),
             hintText: hintText,

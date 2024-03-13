@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:to_do/app/app.dart';
 import 'package:to_do/app/core/constants.dart';
-import 'package:to_do/app/features/pages/login_page/login_page.dart';
 import 'package:to_do/app/features/pages/login_page/widgets/login_button.dart';
 import 'package:to_do/app/features/pages/login_page/widgets/sing_up_button.dart';
 
@@ -48,7 +48,7 @@ class WelcomePage extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => LoginPage(),
+                    builder: (_) => const Auth(),
                   ),
                 );
               },
