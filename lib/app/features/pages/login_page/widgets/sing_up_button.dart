@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/app/core/constants.dart';
-import 'package:to_do/app/features/pages/register_page/register_page.dart';
 
 class CustomSignUpButton extends StatelessWidget {
   const CustomSignUpButton({
     super.key,
+    required this.onTap,
+    required this.title,
   });
+
+  final VoidCallback onTap;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => RegisterPage(),
-          ),
-        );
-      },
+      onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
           color: Colors.transparent,
@@ -28,10 +26,10 @@ class CustomSignUpButton extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.all(12),
         margin: const EdgeInsets.symmetric(horizontal: 60),
-        child: const Center(
+        child: Center(
           child: Text(
-            'SIGN UP',
-            style: TextStyle(
+            title,
+            style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
                 color: kPrimary,

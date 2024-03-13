@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do/app/core/config.dart';
 import 'package:to_do/app/cubit/auth_cubit.dart';
+import 'package:to_do/app/features/pages/home_page/auth_page.dart';
 import 'package:to_do/app/features/pages/home_page/home_page.dart';
-import 'package:to_do/app/features/pages/login_page/login_page.dart';
 import 'package:to_do/app/features/pages/welcome_page/welcome_page.dart';
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -12,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: Config.debugShowCheckedModeBanner,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -22,8 +25,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Auth extends StatelessWidget {
-  const Auth({
+class MainPage extends StatelessWidget {
+  const MainPage({
     super.key,
   });
 
@@ -35,9 +38,11 @@ class Auth extends StatelessWidget {
         builder: (context, state) {
           final user = state.user;
           if (user == null) {
-            return LoginPage();
+            return const AuthPage();
           }
-          return HomePage(user: user);
+          return HomePage(
+            user: user,
+          );
         },
       ),
     );

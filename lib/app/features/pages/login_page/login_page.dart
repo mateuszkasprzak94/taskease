@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:to_do/app/app.dart';
 import 'package:to_do/app/core/constants.dart';
 import 'package:to_do/app/core/enums.dart';
 import 'package:to_do/app/cubit/auth_cubit.dart';
 import 'package:to_do/app/features/pages/login_page/widgets/login_button.dart';
-import 'package:to_do/app/features/pages/register_page/register_page.dart';
 import 'package:to_do/app/widgets/buttons/close_button.dart';
 import 'package:to_do/app/features/pages/login_page/widgets/login_textfield.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+  LoginPage({
+    super.key,
+    required this.onClickedSignUp,
+  });
 
+  final VoidCallback onClickedSignUp;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -162,7 +166,9 @@ class _LoginPageState extends State<LoginPage> {
                         onTap: () {
                           context.read<AuthCubit>().signIn(
                               widget.emailController.text,
-                              widget.passwordController.text);
+                              widget.passwordController.text,
+                              context,
+                              navigatorKey);
                         },
                         title: 'LOGIN',
                       ),
@@ -176,13 +182,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           const SizedBox(width: 5),
                           GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (_) => RegisterPage(),
-                                ),
-                              );
-                            },
+                            onTap: widget.onClickedSignUp,
                             child: Container(
                               decoration: const BoxDecoration(
                                 border: Border(

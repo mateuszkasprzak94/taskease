@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:to_do/app/app.dart';
 import 'package:to_do/app/core/enums.dart';
 
 part 'auth_state.dart';
@@ -19,8 +21,8 @@ class AuthCubit extends Cubit<AuthState> {
   ) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController,
-        password: passwordController,
+        email: emailController.trim(),
+        password: passwordController.trim(),
       );
     } catch (error) {
       emit(
@@ -33,15 +35,23 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> signIn(
-    String emailController,
-    String passwordController,
-  ) async {
+  Future<void> signIn(String emailController, String passwordController,
+      BuildContext context, GlobalKey<NavigatorState> navigatorKey) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController,
-        password: passwordController,
+        email: emailController.trim(),
+        password: passwordController.trim(),
       );
+      navigatorKey.currentState!.pushReplacement(MaterialPageRoute(
+        builder: (context) => const MainPage(),
+      ));
     } catch (error) {
       emit(
         AuthState(

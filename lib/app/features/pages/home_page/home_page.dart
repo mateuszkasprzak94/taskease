@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do/app/cubit/auth_cubit.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({
     super.key,
     required this.user,
@@ -12,19 +12,26 @@ class HomePage extends StatefulWidget {
   final User user;
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            context.read<AuthCubit>().signOut();
-          },
-          child: Text('LOGOUT'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Signed in as: ${user.email}'),
+            ElevatedButton(
+              onPressed: () {
+                context.read<AuthCubit>().signOut();
+              },
+              child: Text('LOGOUT'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.read<AuthCubit>().deleteUserAccount();
+              },
+              child: Text('DELETE'),
+            ),
+          ],
         ),
       ),
     );

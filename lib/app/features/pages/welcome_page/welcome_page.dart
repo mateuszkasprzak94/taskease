@@ -1,11 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:to_do/app/app.dart';
 import 'package:to_do/app/core/constants.dart';
+import 'package:to_do/app/features/pages/login_page/login_page.dart';
 import 'package:to_do/app/features/pages/login_page/widgets/login_button.dart';
 import 'package:to_do/app/features/pages/login_page/widgets/sing_up_button.dart';
+import 'package:to_do/app/features/pages/register_page/register_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
+
+  void navigateToLogin(BuildContext context) {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (_) => LoginPage(
+          onClickedSignUp: () {
+            navigateToRegister(context);
+          },
+        ),
+      ),
+      (route) => route.isFirst,
+    );
+  }
+
+  void navigateToRegister(BuildContext context) {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (_) => RegisterPage(
+          onClickedSignUp: () {
+            navigateToLogin(context);
+          },
+        ),
+      ),
+      (route) => route.isFirst,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,16 +73,17 @@ class WelcomePage extends StatelessWidget {
             const SizedBox(height: 50),
             CustomLoginButton(
               onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => const Auth(),
-                  ),
-                );
+                navigateToLogin(context);
               },
               title: 'LOGIN',
             ),
             const SizedBox(height: 15),
-            const CustomSignUpButton(),
+            CustomSignUpButton(
+              onTap: () {
+                navigateToRegister(context);
+              },
+              title: 'SIGN UP',
+            ),
           ],
         ),
       ),

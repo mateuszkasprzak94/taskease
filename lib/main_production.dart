@@ -6,6 +6,6 @@ void main() {
   Config.appFlavor = Flavor.production;
 
   runApp(
-    const MyApp(),
+    MyApp(),
   );
 }
