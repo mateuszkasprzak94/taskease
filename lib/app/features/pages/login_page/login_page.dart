@@ -50,13 +50,13 @@ class _LoginPageState extends State<LoginPage> {
                     CustomCloseButton(),
                   ],
                 ),
-                const SizedBox(height: 20),
-                const SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: Placeholder(),
+                const SizedBox(height: 10),
+                SizedBox(
+                  height: 150,
+                  width: 150,
+                  child: Image.asset('assets/images/welcome.png'),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Text(

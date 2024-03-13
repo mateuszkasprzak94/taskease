@@ -24,16 +24,13 @@ class WelcomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 200,
-              width: 250,
-              child: Placeholder(),
-            ),
-            const SizedBox(height: 50),
-            const SizedBox(
-              height: 100,
-              width: 100,
-              child: Placeholder(),
+            SizedBox(
+              height: 150,
+              width: 150,
+              child: Image.asset(
+                'assets/images/ease.png',
+                fit: BoxFit.fill,
+              ),
             ),
             const Padding(
               padding: EdgeInsets.all(15.0),
