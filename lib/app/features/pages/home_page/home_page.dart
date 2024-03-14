@@ -93,13 +93,41 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: ElevatedButton(onPressed: () {}, child: Text('ADD')),
-                )
+                const AddTaskButton()
               ],
             ),
           ),
         ),
       );
+}
+
+class AddTaskButton extends StatelessWidget {
+  const AddTaskButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.black,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero,
+          ),
+        ),
+        onPressed: () {},
+        label: const Text(
+          'Add Task',
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
+        ),
+        icon: const Icon(
+          Icons.add_box,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
 }
