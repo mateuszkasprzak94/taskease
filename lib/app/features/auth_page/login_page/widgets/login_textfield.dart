@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do/app/core/constants.dart';
 
@@ -28,9 +29,13 @@ class LoginTextFieldWidget extends StatelessWidget {
             ),
           ],
         ),
-        child: TextField(
+        child: TextFormField(
           keyboardType: TextInputType.emailAddress,
           controller: controller,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (email) => email != null && !EmailValidator.validate(email)
+              ? 'Enter a valid email'
+              : null,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),

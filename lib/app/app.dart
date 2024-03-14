@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do/app/core/config.dart';
 import 'package:to_do/app/cubit/auth_cubit.dart';
-import 'package:to_do/app/features/pages/home_page/auth_page.dart';
+import 'package:to_do/app/features/auth_page/login_page/auth_page.dart';
 import 'package:to_do/app/features/pages/home_page/home_page.dart';
 import 'package:to_do/app/features/pages/welcome_page/welcome_page.dart';
 
@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MainPage extends StatelessWidget {
-  const MainPage({
+class RootPage extends StatelessWidget {
+  const RootPage({
     super.key,
   });
 

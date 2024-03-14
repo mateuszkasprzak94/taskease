@@ -20,22 +20,35 @@ class AuthCubit extends Cubit<AuthState> {
     String passwordController,
     BuildContext context,
     GlobalKey<NavigatorState> navigatorKey,
+    GlobalKey<FormState> formKey,
   ) async {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => const Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+    final isValid = formKey.currentState!.validate();
+    if (!isValid) return;
+
+    bool showError = true;
+
     try {
+      if (showError) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => const Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      }
+
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.trim(),
         password: passwordController.trim(),
       );
-      navigatorKey.currentState!.pushReplacement(MaterialPageRoute(
-        builder: (context) => const MainPage(),
-      ));
+
+      navigatorKey.currentState!.pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const RootPage(),
+        ),
+      );
+      showError = false;
     } catch (error) {
       emit(
         AuthState(
@@ -44,6 +57,10 @@ class AuthCubit extends Cubit<AuthState> {
           errorMessage: error.toString(),
         ),
       );
+    } finally {
+      if (showError) {
+        Navigator.of(navigatorKey.currentContext!).pop();
+      }
     }
   }
 
@@ -53,21 +70,30 @@ class AuthCubit extends Cubit<AuthState> {
     BuildContext context,
     GlobalKey<NavigatorState> navigatorKey,
   ) async {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => const Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+    bool showError = true;
     try {
+      if (showError) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => const Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      }
+
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.trim(),
         password: passwordController.trim(),
       );
-      navigatorKey.currentState!.pushReplacement(MaterialPageRoute(
-        builder: (context) => const MainPage(),
-      ));
+
+      navigatorKey.currentState!.pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const RootPage(),
+        ),
+      );
+
+      showError = false;
     } catch (error) {
       emit(
         AuthState(
@@ -76,6 +102,10 @@ class AuthCubit extends Cubit<AuthState> {
           errorMessage: error.toString(),
         ),
       );
+    } finally {
+      if (showError) {
+        Navigator.of(navigatorKey.currentContext!).pop();
+      }
     }
   }
 

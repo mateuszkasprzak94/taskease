@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/app/core/constants.dart';
-import 'package:to_do/app/features/pages/login_page/login_page.dart';
+import 'package:to_do/app/features/auth_page/login_page/login_page.dart';
 
 class PasswordTextFieldWidget extends StatelessWidget {
   const PasswordTextFieldWidget({

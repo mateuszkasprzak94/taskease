@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/app/core/constants.dart';
-import 'package:to_do/app/features/pages/login_page/login_page.dart';
-import 'package:to_do/app/features/pages/login_page/widgets/login_button.dart';
-import 'package:to_do/app/features/pages/login_page/widgets/sing_up_button.dart';
-import 'package:to_do/app/features/pages/register_page/register_page.dart';
+import 'package:to_do/app/features/auth_page/login_page/login_page.dart';
+import 'package:to_do/app/features/auth_page/login_page/widgets/login_button.dart';
+import 'package:to_do/app/features/auth_page/login_page/widgets/sing_up_button.dart';
+import 'package:to_do/app/features/auth_page/register_page/register_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});

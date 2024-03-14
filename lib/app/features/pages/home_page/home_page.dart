@@ -23,13 +23,13 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 context.read<AuthCubit>().signOut();
               },
-              child: Text('LOGOUT'),
+              child: const Text('LOGOUT'),
             ),
             ElevatedButton(
               onPressed: () {
                 context.read<AuthCubit>().deleteUserAccount();
               },
-              child: Text('DELETE'),
+              child: const Text('DELETE'),
             ),
           ],
         ),

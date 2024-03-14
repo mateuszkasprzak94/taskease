@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/app/core/constants.dart';
-import 'package:to_do/app/features/pages/register_page/register_page.dart';
+import 'package:to_do/app/features/auth_page/register_page/register_page.dart';
 
 class RegisterTextField extends StatelessWidget {
   const RegisterTextField({
@@ -9,12 +9,16 @@ class RegisterTextField extends StatelessWidget {
     required this.hintText,
     required this.icon,
     required this.registerController,
+    required this.validator,
+    this.obscureText = false,
   });
 
   final RegisterPage widget;
   final String hintText;
   final IconData icon;
   final TextEditingController registerController;
+  final String? Function(String?)? validator;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +35,12 @@ class RegisterTextField extends StatelessWidget {
             ),
           ],
         ),
-        child: TextField(
-          obscureText: true,
+        child: TextFormField(
+          obscureText: obscureText,
           keyboardType: TextInputType.emailAddress,
           controller: registerController,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: validator,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
