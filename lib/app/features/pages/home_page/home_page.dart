@@ -1,8 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:to_do/app/features/pages/profile_page/profile_page.dart';
 import 'package:intl/intl.dart';
+import 'package:to_do/app/features/pages/home_page/tab_screens/failed/failed.dart';
+import 'package:to_do/app/features/pages/home_page/tab_screens/task_done/done.dart';
+import 'package:to_do/app/features/pages/home_page/tab_screens/today/today.dart';
+import 'package:to_do/app/features/pages/home_page/tab_screens/upcoming/upcoming.dart';
+import 'package:to_do/app/features/pages/home_page/widgets/tabbar.dart';
+import 'package:to_do/app/features/pages/profile_page/profile_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -32,83 +36,67 @@ class _HomePageState extends State<HomePage> {
         length: 4,
         child: Scaffold(
           body: SafeArea(
-            child: Column(
+            child: Stack(
+              alignment: Alignment.bottomCenter,
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        formattedDate,
-                        style: const TextStyle(
-                          decoration: TextDecoration.underline,
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            formattedDate,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProfilePage(user: widget.user),
+                                ),
+                              );
+                            },
+                            icon: const Icon(Icons.person),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Here's Today's Update",
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  ProfilePage(user: widget.user),
-                            ),
-                          );
-                        },
-                        icon: const Icon(Icons.person),
+                    ),
+                    const TabBarWidget(),
+                    const Expanded(
+                      child: TabBarView(
+                        children: [
+                          TodayTab(),
+                          UpcomingTab(),
+                          TaskDoneTab(),
+                          FailedTab(),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Here's Today's Update",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                const TabBar(
-                  indicatorColor: Colors.black,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  labelColor: Colors.black,
-                  tabs: [
-                    Tab(
-                      text: 'Today',
-                    ),
-                    Tab(
-                      text: 'Upcoming',
-                    ),
-                    Tab(
-                      text: 'Task Done',
-                    ),
-                    Tab(
-                      text: 'Failed Task',
                     ),
                   ],
                 ),
-                const Expanded(
-                  child: TabBarView(
-                    children: [
-                      Center(
-                        child: Text('Today'),
-                      ),
-                      Center(
-                        child: Text('Upcoming'),
-                      ),
-                      Center(
-                        child: Text('Task Done'),
-                      ),
-                      Center(
-                        child: Text('Failed Tasks'),
-                      ),
-                    ],
-                  ),
-                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: ElevatedButton(onPressed: () {}, child: Text('ADD')),
+                )
               ],
             ),
           ),
