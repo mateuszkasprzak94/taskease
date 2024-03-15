@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: Text(
-                            'Welcome Back',
+                            'Welcome Back!',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 35,
@@ -105,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(height: 10),
                         LoginTextFieldWidget(
                           controller: widget.emailController,
-                          hintText: 'Email adress',
+                          hintText: 'Enter your email',
                           icon: Icons.email,
                         ),
                         Padding(
@@ -144,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                                         isPasswordVisible = !isPasswordVisible,
                                   ),
                                 ),
-                                hintText: 'Password',
+                                hintText: 'Enter your password',
                                 filled: true,
                                 fillColor: Colors.white,
                                 hintStyle: const TextStyle(
@@ -159,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               style: const TextStyle(
-                                color: Colors.black87,
+                                color: Colors.black,
                               ),
                             ),
                           ),

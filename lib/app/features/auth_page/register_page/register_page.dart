@@ -105,7 +105,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           // ),
                           RegisterTextField(
                             widget: widget,
-                            hintText: 'Email adress',
+                            hintText: 'Email',
                             icon: Icons.email,
                             registerController: widget.emailController,
                             validator: (email) =>

@@ -65,7 +65,7 @@ class RegisterTextField extends StatelessWidget {
             ),
           ),
           style: const TextStyle(
-            color: Colors.black87,
+            color: Colors.black,
           ),
         ),
       ),

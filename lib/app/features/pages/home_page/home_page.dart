@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:to_do/app/features/pages/add_task_page/add_task_page.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/failed/failed.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/task_done/done.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/today/today.dart';
@@ -117,7 +118,13 @@ class AddTaskButton extends StatelessWidget {
             borderRadius: BorderRadius.zero,
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const AddTask(),
+            ),
+          );
+        },
         label: const Text(
           'Add Task',
           style: TextStyle(

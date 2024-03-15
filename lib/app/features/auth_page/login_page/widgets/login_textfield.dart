@@ -66,7 +66,7 @@ class LoginTextFieldWidget extends StatelessWidget {
             ),
           ),
           style: const TextStyle(
-            color: Colors.black87,
+            color: Colors.black,
           ),
         ),
       ),
