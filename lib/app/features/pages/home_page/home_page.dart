@@ -8,6 +8,7 @@ import 'package:to_do/app/features/pages/home_page/tab_screens/today/today.dart'
 import 'package:to_do/app/features/pages/home_page/tab_screens/upcoming/upcoming.dart';
 import 'package:to_do/app/features/pages/home_page/widgets/tabbar.dart';
 import 'package:to_do/app/features/pages/profile_page/profile_page.dart';
+import 'package:to_do/app/widgets/animations/animation.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -44,57 +45,69 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            formattedDate,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              decoration: TextDecoration.underline,
+                      child: FadeInAnimation(
+                        delay: 1,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              formattedDate,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                decoration: TextDecoration.underline,
+                              ),
                             ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      ProfilePage(user: widget.user),
-                                ),
-                              );
-                            },
-                            icon: const Icon(Icons.person),
-                          ),
-                        ],
+                            IconButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProfilePage(user: widget.user),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(Icons.person),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Here's Today's Update",
-                          style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
+                    const FadeInAnimation(
+                      delay: 1.3,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Here's Today's Update",
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    const TabBarWidget(),
+                    const FadeInAnimation(delay: 1.6, child: TabBarWidget()),
                     const Expanded(
-                      child: TabBarView(
-                        children: [
-                          TodayTab(),
-                          UpcomingTab(),
-                          TaskDoneTab(),
-                          FailedTab(),
-                        ],
+                      child: FadeInAnimation(
+                        delay: 1.6,
+                        child: TabBarView(
+                          children: [
+                            TodayTab(),
+                            UpcomingTab(),
+                            TaskDoneTab(),
+                            FailedTab(),
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
-                const AddTaskButton()
+                const FadeInAnimation(
+                  delay: 1.9,
+                  child: AddTaskButton(),
+                ),
               ],
             ),
           ),

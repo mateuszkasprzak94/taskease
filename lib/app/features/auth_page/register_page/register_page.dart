@@ -7,6 +7,7 @@ import 'package:to_do/app/core/enums.dart';
 import 'package:to_do/app/cubit/auth_cubit.dart';
 import 'package:to_do/app/features/auth_page/login_page/widgets/login_button.dart';
 import 'package:to_do/app/features/auth_page/register_page/widgets/register_textfield.dart';
+import 'package:to_do/app/widgets/animations/animation.dart';
 import 'package:to_do/app/widgets/buttons/close_button.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -64,7 +65,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       const Row(
                         children: [
-                          CustomCloseButton(),
+                          FadeInAnimation(
+                            delay: 1,
+                            child: CustomCloseButton(),
+                          ),
                         ],
                       ),
                       Row(
@@ -72,19 +76,25 @@ class _RegisterPageState extends State<RegisterPage> {
                         children: [
                           Column(
                             children: [
-                              const Text(
-                                'Register',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.bold),
+                              const FadeInAnimation(
+                                delay: 1.3,
+                                child: Text(
+                                  'Register',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 35,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
-                              Text(
-                                'Create your account',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.white.withOpacity(0.50),
-                                  fontWeight: FontWeight.w600,
+                              FadeInAnimation(
+                                delay: 1.6,
+                                child: Text(
+                                  'Create your account',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white.withOpacity(0.50),
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
                             ],
@@ -103,105 +113,123 @@ class _RegisterPageState extends State<RegisterPage> {
                           //           ? 'Enter max. 20 characters'
                           //           : null,
                           // ),
-                          RegisterTextField(
-                            widget: widget,
-                            hintText: 'Email',
-                            icon: Icons.email,
-                            registerController: widget.emailController,
-                            validator: (email) =>
-                                email != null && !EmailValidator.validate(email)
-                                    ? 'Enter a valid email'
-                                    : null,
+                          FadeInAnimation(
+                            delay: 1.9,
+                            child: RegisterTextField(
+                              widget: widget,
+                              hintText: 'Email',
+                              icon: Icons.email,
+                              registerController: widget.emailController,
+                              validator: (email) => email != null &&
+                                      !EmailValidator.validate(email)
+                                  ? 'Enter a valid email'
+                                  : null,
+                            ),
                           ),
-                          RegisterTextField(
-                            widget: widget,
-                            hintText: 'Password',
-                            icon: Icons.key_outlined,
-                            registerController: widget.passwordController,
-                            validator: (value) =>
-                                value != null && value.length < 6
+                          FadeInAnimation(
+                            delay: 2.1,
+                            child: RegisterTextField(
+                              widget: widget,
+                              hintText: 'Password',
+                              icon: Icons.key_outlined,
+                              registerController: widget.passwordController,
+                              validator: (value) =>
+                                  value != null && value.length < 6
+                                      ? 'Enter min. 6 characters'
+                                      : null,
+                              obscureText: true,
+                            ),
+                          ),
+                          FadeInAnimation(
+                            delay: 2.4,
+                            child: RegisterTextField(
+                              widget: widget,
+                              hintText: 'Confirm password',
+                              icon: Icons.key_outlined,
+                              registerController:
+                                  widget.confirmPasswordController,
+                              validator: (value) {
+                                if (value != widget.passwordController.text) {
+                                  return 'Passwords do not match';
+                                }
+                                return value != null && value.length < 6
                                     ? 'Enter min. 6 characters'
-                                    : null,
-                            obscureText: true,
-                          ),
-                          RegisterTextField(
-                            widget: widget,
-                            hintText: 'Confirm password',
-                            icon: Icons.key_outlined,
-                            registerController:
-                                widget.confirmPasswordController,
-                            validator: (value) {
-                              if (value != widget.passwordController.text) {
-                                return 'Passwords do not match';
-                              }
-                              return value != null && value.length < 6
-                                  ? 'Enter min. 6 characters'
-                                  : null;
-                            },
-                            obscureText: true,
+                                    : null;
+                              },
+                              obscureText: true,
+                            ),
                           ),
                         ],
                       ),
                       const Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 45, vertical: 10),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                'By registering you are agreeing to our Terms of use and Privacy Policy.',
-                                style: TextStyle(
-                                  color: Colors.white70,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 65),
-                      CustomLoginButton(
-                        onTap: () {
-                          context.read<AuthCubit>().register(
-                                widget.emailController.text,
-                                widget.passwordController.text,
-                                context,
-                                navigatorKey,
-                                formKey,
-                              );
-                        },
-                        title: 'REGISTER',
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Already have an account?',
-                            style: TextStyle(color: Colors.white70),
-                          ),
-                          const SizedBox(width: 5),
-                          GestureDetector(
-                            onTap: widget.onClickedSignUp,
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(
-                                    width: 1.8,
-                                    color: Colors.white,
+                        child: FadeInAnimation(
+                          delay: 2.7,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  'By registering you are agreeing to our Terms of use and Privacy Policy.',
+                                  style: TextStyle(
+                                    color: Colors.white70,
                                   ),
                                 ),
                               ),
-                              child: const Text(
-                                'Login',
-                                style: TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 65),
+                      FadeInAnimation(
+                        delay: 3,
+                        child: CustomLoginButton(
+                          onTap: () {
+                            context.read<AuthCubit>().register(
+                                  widget.emailController.text,
+                                  widget.passwordController.text,
+                                  context,
+                                  navigatorKey,
+                                  formKey,
+                                );
+                          },
+                          title: 'REGISTER',
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      FadeInAnimation(
+                        delay: 3.3,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Already have an account?',
+                              style: TextStyle(color: Colors.white70),
+                            ),
+                            const SizedBox(width: 5),
+                            GestureDetector(
+                              onTap: widget.onClickedSignUp,
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  border: Border(
+                                    bottom: BorderSide(
+                                      width: 1.8,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                child: const Text(
+                                  'Login',
+                                  style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),
