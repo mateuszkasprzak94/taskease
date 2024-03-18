@@ -1,4 +1,4 @@
-# to_do
+# TaskEase
 
 A new Flutter project.
 
