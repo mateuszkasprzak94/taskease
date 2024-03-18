@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:to_do/app/app.dart';
 import 'package:to_do/app/core/enums.dart';
 
 part 'auth_state.dart';
@@ -18,37 +17,16 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> register(
     String emailController,
     String passwordController,
-    BuildContext context,
-    GlobalKey<NavigatorState> navigatorKey,
     GlobalKey<FormState> formKey,
   ) async {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
 
-    bool showError = true;
-
     try {
-      if (showError) {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) => const Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
-      }
-
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.trim(),
         password: passwordController.trim(),
       );
-
-      navigatorKey.currentState!.pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const RootPage(),
-        ),
-      );
-      showError = false;
     } catch (error) {
       emit(
         AuthState(
@@ -57,43 +35,18 @@ class AuthCubit extends Cubit<AuthState> {
           errorMessage: error.toString(),
         ),
       );
-    } finally {
-      if (showError) {
-        Navigator.of(navigatorKey.currentContext!).pop();
-      }
     }
   }
 
   Future<void> signIn(
     String emailController,
     String passwordController,
-    BuildContext context,
-    GlobalKey<NavigatorState> navigatorKey,
   ) async {
-    bool showError = true;
     try {
-      if (showError) {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) => const Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
-      }
-
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.trim(),
         password: passwordController.trim(),
       );
-
-      navigatorKey.currentState!.pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const RootPage(),
-        ),
-      );
-
-      showError = false;
     } catch (error) {
       emit(
         AuthState(
@@ -102,10 +55,6 @@ class AuthCubit extends Cubit<AuthState> {
           errorMessage: error.toString(),
         ),
       );
-    } finally {
-      if (showError) {
-        Navigator.of(navigatorKey.currentContext!).pop();
-      }
     }
   }
 
