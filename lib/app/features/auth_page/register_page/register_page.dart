@@ -1,7 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do/app/app.dart';
 import 'package:to_do/app/core/constants.dart';
 import 'package:to_do/app/core/enums.dart';
 import 'package:to_do/app/cubit/auth_cubit.dart';
@@ -13,10 +12,10 @@ import 'package:to_do/app/widgets/buttons/close_button.dart';
 class RegisterPage extends StatefulWidget {
   RegisterPage({
     super.key,
-    required this.onClickedSignUp,
+    required this.showLoginPage,
   });
 
-  final Function() onClickedSignUp;
+  final VoidCallback showLoginPage;
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -188,8 +187,6 @@ class _RegisterPageState extends State<RegisterPage> {
                             context.read<AuthCubit>().register(
                                   widget.emailController.text,
                                   widget.passwordController.text,
-                                  context,
-                                  navigatorKey,
                                   formKey,
                                 );
                           },
@@ -208,7 +205,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                             const SizedBox(width: 5),
                             GestureDetector(
-                              onTap: widget.onClickedSignUp,
+                              onTap: widget.showLoginPage,
                               child: Container(
                                 decoration: const BoxDecoration(
                                   border: Border(

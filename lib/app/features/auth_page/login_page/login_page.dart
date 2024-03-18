@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do/app/app.dart';
 import 'package:to_do/app/core/constants.dart';
 import 'package:to_do/app/core/enums.dart';
 import 'package:to_do/app/cubit/auth_cubit.dart';
@@ -12,10 +11,10 @@ import 'package:to_do/app/widgets/buttons/close_button.dart';
 class LoginPage extends StatefulWidget {
   LoginPage({
     super.key,
-    required this.onClickedSignUp,
+    required this.showRegisterPage,
   });
 
-  final VoidCallback onClickedSignUp;
+  final VoidCallback showRegisterPage;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -189,8 +188,6 @@ class _LoginPageState extends State<LoginPage> {
                               context.read<AuthCubit>().signIn(
                                     widget.emailController.text,
                                     widget.passwordController.text,
-                                    context,
-                                    navigatorKey,
                                   );
                             },
                             title: 'LOGIN',
@@ -208,7 +205,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               const SizedBox(width: 5),
                               GestureDetector(
-                                onTap: widget.onClickedSignUp,
+                                onTap: widget.showRegisterPage,
                                 child: Container(
                                   decoration: const BoxDecoration(
                                     border: Border(

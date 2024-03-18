@@ -6,15 +6,12 @@ import 'package:to_do/app/features/auth_page/login_page/auth_page.dart';
 import 'package:to_do/app/features/pages/home_page/home_page.dart';
 import 'package:to_do/app/features/pages/welcome_page/welcome_page.dart';
 
-final navigatorKey = GlobalKey<NavigatorState>();
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: Config.debugShowCheckedModeBanner,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -40,9 +37,7 @@ class RootPage extends StatelessWidget {
           if (user == null) {
             return const AuthPage();
           }
-          return HomePage(
-            user: user,
-          );
+          return HomePage(user: user);
         },
       ),
     );

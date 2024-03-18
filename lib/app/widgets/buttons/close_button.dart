@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do/app/features/pages/welcome_page/welcome_page.dart';
 
 class CustomCloseButton extends StatelessWidget {
   const CustomCloseButton({
@@ -11,7 +12,11 @@ class CustomCloseButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: GestureDetector(
         onTap: () {
-          Navigator.pop(context);
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const WelcomePage(),
+            ),
+          );
         },
         child: Container(
           decoration: BoxDecoration(
