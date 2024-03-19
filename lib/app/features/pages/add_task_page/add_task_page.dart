@@ -75,6 +75,7 @@ class _AddTaskState extends State<AddTask> {
             ? null
             : DateFormat.yMMMMEEEEd().format(_deadLine!),
         titleController: _titleController,
+        selectedTaskType: _taskType,
       ),
     );
   }
@@ -87,6 +88,7 @@ class _AddTaskBody extends StatelessWidget {
     required this.onTypeChanged,
     required this.selectedDateFormatted,
     required this.titleController,
+    required this.selectedTaskType,
   });
 
   final Function(DateTime?) onDeadLineChanged;
@@ -94,10 +96,10 @@ class _AddTaskBody extends StatelessWidget {
   final Function(String?) onTypeChanged;
   final String? selectedDateFormatted;
   final TextEditingController titleController;
+  final String? selectedTaskType;
 
   @override
   Widget build(BuildContext context) {
-    List<bool> isSelected = [false, false, false];
     List<String> taskType = ['Basic', 'Important', 'Urgent'];
 
     return Padding(
@@ -180,17 +182,16 @@ class _AddTaskBody extends StatelessWidget {
                     crossAxisSpacing: 8,
                     childAspectRatio: 2.5,
                     children: List.generate(
-                      isSelected.length,
+                      taskType.length,
                       (index) {
                         return InkWell(
                           splashColor: Colors.transparent,
                           onTap: () {
                             onTypeChanged(taskType[index]);
-                            print(taskType[index]);
                           },
                           child: Ink(
                             decoration: BoxDecoration(
-                              color: isSelected[index]
+                              color: taskType[index] == selectedTaskType
                                   ? Colors.black
                                   : Colors.white,
                               borderRadius: BorderRadius.circular(5),
@@ -200,7 +201,7 @@ class _AddTaskBody extends StatelessWidget {
                               child: Text(
                                 taskType[index],
                                 style: TextStyle(
-                                    color: isSelected[index]
+                                    color: taskType[index] == selectedTaskType
                                         ? Colors.white
                                         : Colors.black,
                                     fontWeight: FontWeight.bold),
