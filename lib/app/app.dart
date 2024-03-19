@@ -11,13 +11,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: Config.debugShowCheckedModeBanner,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return BlocProvider(
+      create: (context) => AuthCubit()..start(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: Config.debugShowCheckedModeBanner,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const WelcomePage(),
       ),
-      home: const WelcomePage(),
     );
   }
 }
@@ -29,17 +32,14 @@ class RootPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit()..start(),
-      child: BlocBuilder<AuthCubit, AuthState>(
-        builder: (context, state) {
-          final user = state.user;
-          if (user == null) {
-            return const AuthPage();
-          }
-          return HomePage(user: user);
-        },
-      ),
+    return BlocBuilder<AuthCubit, AuthState>(
+      builder: (context, state) {
+        final user = state.user;
+        if (user == null) {
+          return const AuthPage();
+        }
+        return HomePage(user: user);
+      },
     );
   }
 }

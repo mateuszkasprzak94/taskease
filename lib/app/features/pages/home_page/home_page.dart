@@ -133,8 +133,7 @@ class AddTaskButton extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          context.read<AuthCubit>().deleteUserAccount();
-          // context.read<AuthCubit>().signOut();
+          context.read<AuthCubit>().signOut();
           // Navigator.of(context).push(
           //   MaterialPageRoute(
           //     builder: (context) => const AddTask(),

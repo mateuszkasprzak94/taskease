@@ -29,6 +29,7 @@ class ProfilePage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 context.read<AuthCubit>().deleteUserAccount();
+                Navigator.of(context).pop();
               },
               child: const Text('DELETE'),
             ),

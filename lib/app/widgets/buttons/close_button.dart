@@ -12,7 +12,7 @@ class CustomCloseButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).push(
+          Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) => const WelcomePage(),
             ),
