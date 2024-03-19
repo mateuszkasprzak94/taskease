@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do/app/cubit/auth_cubit.dart';
+import 'package:to_do/app/features/pages/profile_page/widgets/profile_button.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({
@@ -37,140 +38,22 @@ class ProfilePage extends StatelessWidget {
                   fontSize: 16, decoration: TextDecoration.underline),
             ),
             const SizedBox(height: 250),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(15),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 5),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 13, vertical: 10),
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          color: Colors.grey,
-                        ),
-                        child: const Icon(
-                          Icons.delete,
-                          size: 20,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    const Expanded(
-                      child: Text(
-                        'Delete',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        context.read<AuthCubit>().deleteUserAccount();
-                        Navigator.of(context).pop();
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: Container(
-                          padding: const EdgeInsets.all(5),
-                          decoration: const BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(100),
-                            ),
-                          ),
-                          child: const Icon(
-                            Icons.arrow_right_alt_outlined,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            ProfileButton(
+              title: 'Delete',
+              icon: Icons.delete,
+              onTap: () {
+                context.read<AuthCubit>().deleteUserAccount();
+                Navigator.of(context).pop();
+              },
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(15),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 5),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 13, vertical: 10),
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          color: Colors.grey,
-                        ),
-                        child: const Icon(
-                          Icons.logout,
-                          size: 20,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    const Expanded(
-                      child: Text(
-                        'Logout',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        context.read<AuthCubit>().signOut();
-                        Navigator.of(context).pop();
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: Container(
-                          padding: const EdgeInsets.all(5),
-                          decoration: const BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(100),
-                            ),
-                          ),
-                          child: const Icon(
-                            Icons.arrow_right_alt_outlined,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            ProfileButton(
+              title: 'Logout',
+              icon: Icons.logout,
+              onTap: () {
+                context.read<AuthCubit>().signOut();
+                Navigator.of(context).pop();
+              },
+            )
           ],
         ),
       ),
