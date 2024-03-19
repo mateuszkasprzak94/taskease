@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:to_do/app/widgets/animations/animation.dart';
 
 class AddTask extends StatefulWidget {
   const AddTask({super.key});
@@ -23,59 +24,74 @@ class _AddTaskState extends State<AddTask> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        centerTitle: true,
-        title: const Text(
-          'New Task',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        actions: [
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                _deadLine = null;
-                _title = null;
-                _taskType = null;
-                _titleController.clear();
-              });
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(right: 15),
-              child: Icon(
-                Icons.delete,
-                color: _deadLine != null || _title != null || _taskType != null
-                    ? const Color.fromARGB(255, 223, 41, 28)
-                    : Colors.grey,
+    return GestureDetector(
+      onTap: () {
+        final FocusScopeNode currentScope = FocusScope.of(context);
+        if (!currentScope.hasPrimaryFocus && currentScope.hasFocus) {
+          FocusManager.instance.primaryFocus?.unfocus();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: true,
+          centerTitle: true,
+          title: FadeInAnimation(
+            delay: 1,
+            child: const Text(
+              'New Task',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
-        ],
-      ),
-      body: _AddTaskBody(
-        onDeadLineChanged: (newValue) {
-          setState(() {
-            _deadLine = newValue;
-          });
-        },
-        onTitleChanged: (newValue) {
-          setState(() {
-            _title = newValue;
-          });
-        },
-        onTypeChanged: (newValue) {
-          setState(() {
-            _taskType = newValue;
-          });
-        },
-        selectedDateFormatted: _deadLine == null
-            ? null
-            : DateFormat.yMMMMEEEEd().format(_deadLine!),
-        titleController: _titleController,
-        selectedTaskType: _taskType,
+          actions: [
+            FadeInAnimation(
+              delay: 1,
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _deadLine = null;
+                    _title = null;
+                    _taskType = null;
+                    _titleController.clear();
+                  });
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 15),
+                  child: Icon(
+                    Icons.delete,
+                    color:
+                        _deadLine != null || _title != null || _taskType != null
+                            ? const Color.fromARGB(255, 223, 41, 28)
+                            : Colors.grey,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        body: _AddTaskBody(
+          onDeadLineChanged: (newValue) {
+            setState(() {
+              _deadLine = newValue;
+            });
+          },
+          onTitleChanged: (newValue) {
+            setState(() {
+              _title = newValue;
+            });
+          },
+          onTypeChanged: (newValue) {
+            setState(() {
+              _taskType = newValue;
+            });
+          },
+          selectedDateFormatted: _deadLine == null
+              ? null
+              : DateFormat.yMMMMEEEEd().format(_deadLine!),
+          titleController: _titleController,
+          selectedTaskType: _taskType,
+        ),
       ),
     );
   }
@@ -107,121 +123,142 @@ class _AddTaskBody extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(height: 10),
-          const Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Task DeadLine',
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black54),
+          FadeInAnimation(
+            delay: 1.3,
+            child: const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Task DeadLine',
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black54),
+              ),
             ),
           ),
-          TextField(
-            focusNode: AlwaysDisabledFocusNode(),
-            readOnly: true,
-            enableInteractiveSelection: false,
-            decoration: InputDecoration(
-              isCollapsed: true,
-              label: Text(selectedDateFormatted ?? ''),
-              labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-              suffixIcon: GestureDetector(
-                onTap: () async {
-                  final selectedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime.now().add(
-                      const Duration(days: 365 * 10),
-                    ),
-                  );
-                  onDeadLineChanged(selectedDate);
-                },
-                child: const Icon(
-                  Icons.calendar_month,
+          FadeInAnimation(
+            delay: 1.6,
+            child: TextField(
+              focusNode: AlwaysDisabledFocusNode(),
+              readOnly: true,
+              enableInteractiveSelection: false,
+              decoration: InputDecoration(
+                isCollapsed: true,
+                label: Text(selectedDateFormatted ?? ''),
+                labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+                suffixIcon: GestureDetector(
+                  onTap: () async {
+                    final selectedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime.now().add(
+                        const Duration(days: 365 * 10),
+                      ),
+                    );
+                    onDeadLineChanged(selectedDate);
+                  },
+                  child: const Icon(
+                    Icons.calendar_month,
+                  ),
                 ),
               ),
             ),
           ),
           const SizedBox(height: 20),
-          const Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Task Title',
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black54),
+          FadeInAnimation(
+            delay: 1.9,
+            child: const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Task Title',
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black54),
+              ),
             ),
           ),
-          TextField(
-            controller: titleController,
-            onChanged: onTitleChanged,
+          FadeInAnimation(
+            delay: 2.1,
+            child: TextField(
+              controller: titleController,
+              onChanged: onTitleChanged,
+            ),
           ),
           const SizedBox(height: 20),
           Column(
             children: [
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Task Type',
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black54),
+              FadeInAnimation(
+                delay: 2.4,
+                child: const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Task Type',
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black54),
+                  ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 15),
-                child: Ink(
-                  width: 240,
-                  height: 50,
-                  color: Colors.white,
-                  child: GridView.count(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 8,
-                    childAspectRatio: 2.5,
-                    children: List.generate(
-                      taskType.length,
-                      (index) {
-                        return InkWell(
-                          splashColor: Colors.transparent,
-                          onTap: () {
-                            onTypeChanged(taskType[index]);
-                          },
-                          child: Ink(
-                            decoration: BoxDecoration(
-                              color: taskType[index] == selectedTaskType
-                                  ? Colors.black
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: Colors.black),
-                            ),
-                            child: Center(
-                              child: Text(
-                                taskType[index],
-                                style: TextStyle(
-                                    color: taskType[index] == selectedTaskType
-                                        ? Colors.white
-                                        : Colors.black,
-                                    fontWeight: FontWeight.bold),
+              FadeInAnimation(
+                delay: 2.7,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: Ink(
+                    width: 240,
+                    height: 50,
+                    color: Colors.white,
+                    child: GridView.count(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 8,
+                      childAspectRatio: 2.5,
+                      children: List.generate(
+                        taskType.length,
+                        (index) {
+                          return InkWell(
+                            splashColor: Colors.transparent,
+                            onTap: () {
+                              onTypeChanged(taskType[index]);
+                            },
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                color: taskType[index] == selectedTaskType
+                                    ? Colors.black
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(color: Colors.black),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  taskType[index],
+                                  style: TextStyle(
+                                      color: taskType[index] == selectedTaskType
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
               ),
-              TextField(
-                enabled: false,
-                readOnly: true,
-                focusNode: AlwaysDisabledFocusNode(),
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical: -10),
-                  isCollapsed: true,
-                  isDense: true,
+              FadeInAnimation(
+                delay: 3,
+                child: TextField(
+                  enabled: false,
+                  readOnly: true,
+                  focusNode: AlwaysDisabledFocusNode(),
+                  decoration: const InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(vertical: -10),
+                    isCollapsed: true,
+                    isDense: true,
+                  ),
                 ),
               ),
             ],

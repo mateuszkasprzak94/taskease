@@ -30,23 +30,28 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit(),
-      child: BlocConsumer<AuthCubit, AuthState>(
-        listener: (context, state) {
-          final errorMessage = state.errorMessage ?? 'Unknown error';
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (context, state) {
+        final errorMessage = state.errorMessage ?? 'Unknown error';
 
-          if (state.status == Status.error) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(errorMessage),
-                backgroundColor: Colors.red,
-              ),
-            );
-          }
-        },
-        builder: (context, state) {
-          return Scaffold(
+        if (state.status == Status.error) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(errorMessage),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        return GestureDetector(
+          onTap: () {
+            final FocusScopeNode currentScope = FocusScope.of(context);
+            if (!currentScope.hasPrimaryFocus && currentScope.hasFocus) {
+              FocusManager.instance.primaryFocus?.unfocus();
+            }
+          },
+          child: Scaffold(
             resizeToAvoidBottomInset: false,
             body: Container(
               width: double.infinity,
@@ -233,9 +238,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
