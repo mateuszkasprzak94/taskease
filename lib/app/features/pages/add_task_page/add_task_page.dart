@@ -14,12 +14,10 @@ class _AddTaskState extends State<AddTask> {
   String? _taskType;
 
   final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _taskTypeController = TextEditingController();
 
   @override
   void dispose() {
     _titleController.dispose();
-    _taskTypeController.dispose();
     super.dispose();
   }
 
@@ -43,7 +41,6 @@ class _AddTaskState extends State<AddTask> {
                 _title = null;
                 _taskType = null;
                 _titleController.clear();
-                _taskTypeController.clear();
               });
             },
             child: Padding(
@@ -78,7 +75,6 @@ class _AddTaskState extends State<AddTask> {
             ? null
             : DateFormat.yMMMMEEEEd().format(_deadLine!),
         titleController: _titleController,
-        typeController: _taskTypeController,
       ),
     );
   }
@@ -91,7 +87,6 @@ class _AddTaskBody extends StatelessWidget {
     required this.onTypeChanged,
     required this.selectedDateFormatted,
     required this.titleController,
-    required this.typeController,
   });
 
   final Function(DateTime?) onDeadLineChanged;
@@ -99,10 +94,12 @@ class _AddTaskBody extends StatelessWidget {
   final Function(String?) onTypeChanged;
   final String? selectedDateFormatted;
   final TextEditingController titleController;
-  final TextEditingController typeController;
 
   @override
   Widget build(BuildContext context) {
+    List<bool> isSelected = [false, false, false];
+    List<String> taskType = ['Basic', 'Important', 'Urgent'];
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
@@ -123,6 +120,7 @@ class _AddTaskBody extends StatelessWidget {
             readOnly: true,
             enableInteractiveSelection: false,
             decoration: InputDecoration(
+              isCollapsed: true,
               label: Text(selectedDateFormatted ?? ''),
               labelStyle: const TextStyle(fontWeight: FontWeight.bold),
               suffixIcon: GestureDetector(
@@ -159,19 +157,73 @@ class _AddTaskBody extends StatelessWidget {
             onChanged: onTitleChanged,
           ),
           const SizedBox(height: 20),
-          const Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Task Type',
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black54),
-            ),
-          ),
-          TextField(
-            controller: typeController,
-            onChanged: onTypeChanged,
+          Column(
+            children: [
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Task Type',
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black54),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: Ink(
+                  width: 240,
+                  height: 50,
+                  color: Colors.white,
+                  child: GridView.count(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 8,
+                    childAspectRatio: 2.5,
+                    children: List.generate(
+                      isSelected.length,
+                      (index) {
+                        return InkWell(
+                          splashColor: Colors.transparent,
+                          onTap: () {
+                            onTypeChanged(taskType[index]);
+                            print(taskType[index]);
+                          },
+                          child: Ink(
+                            decoration: BoxDecoration(
+                              color: isSelected[index]
+                                  ? Colors.black
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(color: Colors.black),
+                            ),
+                            child: Center(
+                              child: Text(
+                                taskType[index],
+                                style: TextStyle(
+                                    color: isSelected[index]
+                                        ? Colors.white
+                                        : Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              TextField(
+                enabled: false,
+                readOnly: true,
+                focusNode: AlwaysDisabledFocusNode(),
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(vertical: -10),
+                  isCollapsed: true,
+                  isDense: true,
+                ),
+              ),
+            ],
           ),
         ],
       ),
