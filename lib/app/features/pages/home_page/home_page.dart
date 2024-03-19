@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:to_do/app/cubit/auth_cubit.dart';
+import 'package:to_do/app/features/pages/add_task_page/add_task_page.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/failed/failed.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/task_done/done.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/today/today.dart';
@@ -133,12 +132,12 @@ class AddTaskButton extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          context.read<AuthCubit>().signOut();
-          // Navigator.of(context).push(
-          //   MaterialPageRoute(
-          //     builder: (context) => const AddTask(),
-          //   ),
-          // );
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => AddTask(),
+              fullscreenDialog: true,
+            ),
+          );
         },
         label: const Text(
           'Add Task',
