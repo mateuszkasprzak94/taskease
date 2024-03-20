@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:to_do/app/features/pages/add_task_page/widgets/add_task_body.dart';
+import 'package:to_do/app/features/pages/add_task_page/widgets/save_task_button.dart';
 import 'package:to_do/app/widgets/animations/animation.dart';
 
 class AddTask extends StatefulWidget {
@@ -24,6 +26,7 @@ class _AddTaskState extends State<AddTask> {
 
   @override
   Widget build(BuildContext context) {
+    final values = _deadLine == null || _title == null || _taskType == null;
     return GestureDetector(
       onTap: () {
         final FocusScopeNode currentScope = FocusScope.of(context);
@@ -35,9 +38,9 @@ class _AddTaskState extends State<AddTask> {
         appBar: AppBar(
           automaticallyImplyLeading: true,
           centerTitle: true,
-          title: FadeInAnimation(
+          title: const FadeInAnimation(
             delay: 1,
-            child: const Text(
+            child: Text(
               'New Task',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -70,206 +73,43 @@ class _AddTaskState extends State<AddTask> {
             ),
           ],
         ),
-        body: _AddTaskBody(
-          onDeadLineChanged: (newValue) {
-            setState(() {
-              _deadLine = newValue;
-            });
-          },
-          onTitleChanged: (newValue) {
-            setState(() {
-              _title = newValue;
-            });
-          },
-          onTypeChanged: (newValue) {
-            setState(() {
-              _taskType = newValue;
-            });
-          },
-          selectedDateFormatted: _deadLine == null
-              ? null
-              : DateFormat.yMMMMEEEEd().format(_deadLine!),
-          titleController: _titleController,
-          selectedTaskType: _taskType,
+        body: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Column(
+              children: [
+                AddTaskBody(
+                  onDeadLineChanged: (newValue) {
+                    setState(() {
+                      _deadLine = newValue;
+                    });
+                  },
+                  onTitleChanged: (newValue) {
+                    setState(() {
+                      _title = newValue;
+                    });
+                  },
+                  onTypeChanged: (newValue) {
+                    setState(() {
+                      _taskType = newValue;
+                    });
+                  },
+                  selectedDateFormatted: _deadLine == null
+                      ? null
+                      : DateFormat.yMMMMEEEEd().format(_deadLine!),
+                  titleController: _titleController,
+                  selectedTaskType: _taskType,
+                ),
+              ],
+            ),
+            SaveTaskButton(
+                deadLine: _deadLine,
+                title: _title,
+                taskType: _taskType,
+                values: values),
+          ],
         ),
       ),
     );
   }
-}
-
-class _AddTaskBody extends StatelessWidget {
-  const _AddTaskBody({
-    required this.onDeadLineChanged,
-    required this.onTitleChanged,
-    required this.onTypeChanged,
-    required this.selectedDateFormatted,
-    required this.titleController,
-    required this.selectedTaskType,
-  });
-
-  final Function(DateTime?) onDeadLineChanged;
-  final Function(String?) onTitleChanged;
-  final Function(String?) onTypeChanged;
-  final String? selectedDateFormatted;
-  final TextEditingController titleController;
-  final String? selectedTaskType;
-
-  @override
-  Widget build(BuildContext context) {
-    List<String> taskType = ['Basic', 'Important', 'Urgent'];
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Column(
-        children: [
-          const SizedBox(height: 10),
-          FadeInAnimation(
-            delay: 1.3,
-            child: const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Task DeadLine',
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black54),
-              ),
-            ),
-          ),
-          FadeInAnimation(
-            delay: 1.6,
-            child: TextField(
-              focusNode: AlwaysDisabledFocusNode(),
-              readOnly: true,
-              enableInteractiveSelection: false,
-              decoration: InputDecoration(
-                isCollapsed: true,
-                label: Text(selectedDateFormatted ?? ''),
-                labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-                suffixIcon: GestureDetector(
-                  onTap: () async {
-                    final selectedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime.now().add(
-                        const Duration(days: 365 * 10),
-                      ),
-                    );
-                    onDeadLineChanged(selectedDate);
-                  },
-                  child: const Icon(
-                    Icons.calendar_month,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          FadeInAnimation(
-            delay: 1.9,
-            child: const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Task Title',
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black54),
-              ),
-            ),
-          ),
-          FadeInAnimation(
-            delay: 2.1,
-            child: TextField(
-              controller: titleController,
-              onChanged: onTitleChanged,
-            ),
-          ),
-          const SizedBox(height: 20),
-          Column(
-            children: [
-              FadeInAnimation(
-                delay: 2.4,
-                child: const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Task Type',
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black54),
-                  ),
-                ),
-              ),
-              FadeInAnimation(
-                delay: 2.7,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Ink(
-                    width: 240,
-                    height: 50,
-                    color: Colors.white,
-                    child: GridView.count(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 8,
-                      childAspectRatio: 2.5,
-                      children: List.generate(
-                        taskType.length,
-                        (index) {
-                          return InkWell(
-                            splashColor: Colors.transparent,
-                            onTap: () {
-                              onTypeChanged(taskType[index]);
-                            },
-                            child: Ink(
-                              decoration: BoxDecoration(
-                                color: taskType[index] == selectedTaskType
-                                    ? Colors.black
-                                    : Colors.white,
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(color: Colors.black),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  taskType[index],
-                                  style: TextStyle(
-                                      color: taskType[index] == selectedTaskType
-                                          ? Colors.white
-                                          : Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              FadeInAnimation(
-                delay: 3,
-                child: TextField(
-                  enabled: false,
-                  readOnly: true,
-                  focusNode: AlwaysDisabledFocusNode(),
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(vertical: -10),
-                    isCollapsed: true,
-                    isDense: true,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class AlwaysDisabledFocusNode extends FocusNode {
-  @override
-  bool get hasFocus => false;
 }

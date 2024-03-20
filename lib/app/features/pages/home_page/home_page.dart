@@ -134,7 +134,7 @@ class AddTaskButton extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => AddTask(),
+              builder: (context) => const AddTask(),
               fullscreenDialog: true,
             ),
           );
