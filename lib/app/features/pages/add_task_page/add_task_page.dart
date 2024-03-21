@@ -12,7 +12,7 @@ class AddTask extends StatefulWidget {
 }
 
 class _AddTaskState extends State<AddTask> {
-  DateTime? _deadLine;
+  DateTime? _deadline;
   String? _title;
   String? _taskType;
 
@@ -26,7 +26,7 @@ class _AddTaskState extends State<AddTask> {
 
   @override
   Widget build(BuildContext context) {
-    final values = _deadLine == null || _title == null || _taskType == null;
+    final values = _deadline == null || _title == null || _taskType == null;
     return GestureDetector(
       onTap: () {
         final FocusScopeNode currentScope = FocusScope.of(context);
@@ -53,7 +53,7 @@ class _AddTaskState extends State<AddTask> {
               child: GestureDetector(
                 onTap: () {
                   setState(() {
-                    _deadLine = null;
+                    _deadline = null;
                     _title = null;
                     _taskType = null;
                     _titleController.clear();
@@ -64,7 +64,7 @@ class _AddTaskState extends State<AddTask> {
                   child: Icon(
                     Icons.delete,
                     color:
-                        _deadLine != null || _title != null || _taskType != null
+                        _deadline != null || _title != null || _taskType != null
                             ? const Color.fromARGB(255, 223, 41, 28)
                             : Colors.grey,
                   ),
@@ -79,9 +79,9 @@ class _AddTaskState extends State<AddTask> {
             Column(
               children: [
                 AddTaskBody(
-                  onDeadLineChanged: (newValue) {
+                  onDeadlineChanged: (newValue) {
                     setState(() {
-                      _deadLine = newValue;
+                      _deadline = newValue;
                     });
                   },
                   onTitleChanged: (newValue) {
@@ -94,16 +94,16 @@ class _AddTaskState extends State<AddTask> {
                       _taskType = newValue;
                     });
                   },
-                  selectedDateFormatted: _deadLine == null
+                  selectedDateFormatted: _deadline == null
                       ? null
-                      : DateFormat.yMMMMEEEEd().format(_deadLine!),
+                      : DateFormat.yMMMMEEEEd().format(_deadline!),
                   titleController: _titleController,
                   selectedTaskType: _taskType,
                 ),
               ],
             ),
             SaveTaskButton(
-                deadLine: _deadLine,
+                deadline: _deadline,
                 title: _title,
                 taskType: _taskType,
                 values: values),

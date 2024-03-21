@@ -4,15 +4,15 @@ import 'package:to_do/app/widgets/animations/animation.dart';
 class SaveTaskButton extends StatelessWidget {
   const SaveTaskButton({
     super.key,
-    required DateTime? deadLine,
+    required DateTime? deadline,
     required String? title,
     required String? taskType,
     required this.values,
-  })  : _deadLine = deadLine,
+  })  : _deadline = deadline,
         _title = title,
         _taskType = taskType;
 
-  final DateTime? _deadLine;
+  final DateTime? _deadline;
   final String? _title;
   final String? _taskType;
   final bool values;
@@ -20,7 +20,7 @@ class SaveTaskButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: _deadLine == null || _title == null || _taskType == null
+      onTap: _deadline == null || _title == null || _taskType == null
           ? null
           : () {},
       child: FadeInAnimation(

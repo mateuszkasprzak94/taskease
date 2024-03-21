@@ -3,7 +3,7 @@ import 'package:to_do/app/widgets/animations/animation.dart';
 
 class AddTaskBody extends StatelessWidget {
   const AddTaskBody({
-    required this.onDeadLineChanged,
+    required this.onDeadlineChanged,
     required this.onTitleChanged,
     required this.onTypeChanged,
     required this.selectedDateFormatted,
@@ -11,7 +11,7 @@ class AddTaskBody extends StatelessWidget {
     required this.selectedTaskType,
   });
 
-  final Function(DateTime?) onDeadLineChanged;
+  final Function(DateTime?) onDeadlineChanged;
   final Function(String?) onTitleChanged;
   final Function(String?) onTypeChanged;
   final String? selectedDateFormatted;
@@ -32,7 +32,7 @@ class AddTaskBody extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Task DeadLine',
+                'Task Deadline',
                 style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
@@ -60,7 +60,7 @@ class AddTaskBody extends StatelessWidget {
                         const Duration(days: 365 * 10),
                       ),
                     );
-                    onDeadLineChanged(selectedDate);
+                    onDeadlineChanged(selectedDate);
                   },
                   child: const Icon(
                     Icons.calendar_month,
