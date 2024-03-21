@@ -98,6 +98,7 @@ class _HomePageState extends State<HomePage> {
                             bottom: 80,
                           ),
                           child: TabBarView(
+                            physics: NeverScrollableScrollPhysics(),
                             children: [
                               TodayTab(),
                               UpcomingTab(),

@@ -19,7 +19,7 @@ class ItemsRepository {
         (doc) {
           return ItemModel(
             id: doc.id,
-            deadline: doc['deadline'],
+            deadline: (doc['deadline'] as Timestamp).toDate(),
             title: doc['title'],
             taskType: doc['task_type'],
           );
