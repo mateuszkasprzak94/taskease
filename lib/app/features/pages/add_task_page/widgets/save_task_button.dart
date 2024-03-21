@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do/app/features/pages/add_task_page/cubit/add_task_cubit.dart';
 import 'package:to_do/app/widgets/animations/animation.dart';
 
 class SaveTaskButton extends StatelessWidget {
@@ -22,7 +24,13 @@ class SaveTaskButton extends StatelessWidget {
     return GestureDetector(
       onTap: _deadline == null || _title == null || _taskType == null
           ? null
-          : () {},
+          : () {
+              context.read<AddTaskCubit>().add(
+                    _deadline,
+                    _title,
+                    _taskType,
+                  );
+            },
       child: FadeInAnimation(
         delay: 3.3,
         child: Padding(

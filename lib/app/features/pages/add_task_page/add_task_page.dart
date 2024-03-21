@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:to_do/app/domain/repositories/items_repository.dart';
 import 'package:to_do/app/features/pages/add_task_page/cubit/add_task_cubit.dart';
 import 'package:to_do/app/features/pages/add_task_page/widgets/add_task_body.dart';
+import 'package:to_do/app/features/pages/add_task_page/widgets/save_task_button.dart';
 import 'package:to_do/app/widgets/animations/animation.dart';
 
 class AddTask extends StatefulWidget {
@@ -126,47 +127,11 @@ class _AddTaskState extends State<AddTask> {
                       ),
                     ],
                   ),
-                  GestureDetector(
-                    onTap:
-                        _deadline == null || _title == null || _taskType == null
-                            ? null
-                            : () {
-                                context.read<AddTaskCubit>().add(
-                                      _deadline!,
-                                      _title!,
-                                      _taskType!,
-                                    );
-                              },
-                    child: FadeInAnimation(
-                      delay: 3.3,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 40),
-                        child: Container(
-                          padding: const EdgeInsets.all(10),
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            color: values ? Colors.grey : Colors.black,
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Save Task',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  SaveTaskButton(
+                      deadline: _deadline,
+                      title: _title,
+                      taskType: _taskType,
+                      values: values),
                 ],
               ),
             ),
