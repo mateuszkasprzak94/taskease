@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AddTaskState {
-  bool get saved => throw _privateConstructorUsedError;
+  dynamic get status => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +30,7 @@ abstract class $AddTaskStateCopyWith<$Res> {
           AddTaskState value, $Res Function(AddTaskState) then) =
       _$AddTaskStateCopyWithImpl<$Res, AddTaskState>;
   @useResult
-  $Res call({bool saved, String? errorMessage});
+  $Res call({dynamic status, String? errorMessage});
 }
 
 /// @nodoc
@@ -46,14 +46,14 @@ class _$AddTaskStateCopyWithImpl<$Res, $Val extends AddTaskState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? saved = null,
+    Object? status = freezed,
     Object? errorMessage = freezed,
   }) {
     return _then(_value.copyWith(
-      saved: null == saved
-          ? _value.saved
-          : saved // ignore: cast_nullable_to_non_nullable
-              as bool,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -70,7 +70,7 @@ abstract class _$$AddStateImplCopyWith<$Res>
       __$$AddStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool saved, String? errorMessage});
+  $Res call({dynamic status, String? errorMessage});
 }
 
 /// @nodoc
@@ -84,14 +84,11 @@ class __$$AddStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? saved = null,
+    Object? status = freezed,
     Object? errorMessage = freezed,
   }) {
     return _then(_$AddStateImpl(
-      saved: null == saved
-          ? _value.saved
-          : saved // ignore: cast_nullable_to_non_nullable
-              as bool,
+      status: freezed == status ? _value.status! : status,
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -103,17 +100,17 @@ class __$$AddStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddStateImpl implements _AddState {
-  _$AddStateImpl({this.saved = false, this.errorMessage});
+  _$AddStateImpl({this.status = Status.initial, this.errorMessage});
 
   @override
   @JsonKey()
-  final bool saved;
+  final dynamic status;
   @override
   final String? errorMessage;
 
   @override
   String toString() {
-    return 'AddTaskState(saved: $saved, errorMessage: $errorMessage)';
+    return 'AddTaskState(status: $status, errorMessage: $errorMessage)';
   }
 
   @override
@@ -121,13 +118,14 @@ class _$AddStateImpl implements _AddState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddStateImpl &&
-            (identical(other.saved, saved) || other.saved == saved) &&
+            const DeepCollectionEquality().equals(other.status, status) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, saved, errorMessage);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(status), errorMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -137,11 +135,11 @@ class _$AddStateImpl implements _AddState {
 }
 
 abstract class _AddState implements AddTaskState {
-  factory _AddState({final bool saved, final String? errorMessage}) =
+  factory _AddState({final dynamic status, final String? errorMessage}) =
       _$AddStateImpl;
 
   @override
-  bool get saved;
+  dynamic get status;
   @override
   String? get errorMessage;
   @override

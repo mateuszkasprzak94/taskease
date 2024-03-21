@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:to_do/app/core/enums.dart';
 import 'package:to_do/app/domain/repositories/items_repository.dart';
 import 'package:to_do/app/features/pages/add_task_page/cubit/add_task_cubit.dart';
 import 'package:to_do/app/features/pages/add_task_page/widgets/add_task_body.dart';
@@ -36,15 +37,14 @@ class _AddTaskState extends State<AddTask> {
       ),
       child: BlocConsumer<AddTaskCubit, AddTaskState>(
         listener: (context, state) {
-          if (state.saved) {
+          final errorMessage = state.errorMessage ?? 'Unknown error';
+          if (state.status == Status.success) {
             Navigator.of(context).pop();
           }
-          if (state.errorMessage!.isNotEmpty) {
+          if (state.status == Status.error) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(
-                  state.errorMessage as String,
-                ),
+                content: Text(errorMessage),
                 backgroundColor: Colors.red,
               ),
             );

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:to_do/app/core/enums.dart';
 import 'package:to_do/app/domain/repositories/items_repository.dart';
 
 part 'add_task_state.dart';
@@ -19,12 +20,13 @@ class AddTaskCubit extends Cubit<AddTaskState> {
       await _itemsRepository.add(deadline, title, taskType);
       emit(
         AddTaskState(
-          saved: true,
+          status: Status.success,
         ),
       );
     } catch (error) {
       emit(
         AddTaskState(
+          status: Status.error,
           errorMessage: error.toString(),
         ),
       );
