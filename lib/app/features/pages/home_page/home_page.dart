@@ -92,13 +92,19 @@ class _HomePageState extends State<HomePage> {
                     const Expanded(
                       child: FadeInAnimation(
                         delay: 1.6,
-                        child: TabBarView(
-                          children: [
-                            TodayTab(),
-                            UpcomingTab(),
-                            TaskDoneTab(),
-                            FailedTab(),
-                          ],
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            top: 20,
+                            bottom: 80,
+                          ),
+                          child: TabBarView(
+                            children: [
+                              TodayTab(),
+                              UpcomingTab(),
+                              TaskDoneTab(),
+                              FailedTab(),
+                            ],
+                          ),
                         ),
                       ),
                     ),
