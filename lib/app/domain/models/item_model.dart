@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class ItemModel {
   const ItemModel({
     required this.id,
@@ -9,4 +11,8 @@ class ItemModel {
   final DateTime deadline;
   final String title;
   final String taskType;
+
+  String releaseDateFormatted() {
+    return DateFormat.yMMMMd().format(deadline);
+  }
 }
