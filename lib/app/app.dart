@@ -4,7 +4,7 @@ import 'package:to_do/app/core/config.dart';
 import 'package:to_do/app/cubit/auth_cubit.dart';
 import 'package:to_do/app/features/auth_page/login_page/auth_page.dart';
 import 'package:to_do/app/features/pages/home_page/home_page.dart';
-import 'package:to_do/app/features/pages/welcome_page/welcome_page.dart';
+import 'package:to_do/app/features/auth_page/welcome_page/welcome_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

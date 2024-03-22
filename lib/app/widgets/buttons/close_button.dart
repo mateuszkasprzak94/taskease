@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:to_do/app/features/pages/welcome_page/welcome_page.dart';
+import 'package:to_do/app/features/auth_page/welcome_page/welcome_page.dart';
 
 class CustomCloseButton extends StatelessWidget {
   const CustomCloseButton({
