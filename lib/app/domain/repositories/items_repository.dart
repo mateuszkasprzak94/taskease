@@ -22,6 +22,7 @@ class ItemsRepository {
             deadline: (doc['deadline'] as Timestamp).toDate(),
             title: doc['title'],
             taskType: doc['task_type'],
+            isChecked: doc['is_checked'],
           );
         },
       ).toList();
@@ -46,8 +47,24 @@ class ItemsRepository {
         'deadline': deadline,
         'title': title,
         'task_type': taskType,
+        'is_checked': false,
       },
     );
+  }
+
+  Future<void> update({required String id, required bool isChecked}) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('tasks')
+        .doc(id)
+        .update({
+      'is_checked': isChecked,
+    });
   }
 
   Future<void> delete({required String id}) async {

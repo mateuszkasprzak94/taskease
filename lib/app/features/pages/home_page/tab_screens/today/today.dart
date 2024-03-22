@@ -59,66 +59,6 @@ class TodayTab extends StatelessWidget {
   }
 }
 
-class TabItemWidget extends StatelessWidget {
-  const TabItemWidget({
-    super.key,
-    required this.itemModel,
-  });
-
-  final ItemModel itemModel;
-  @override
-  Widget build(BuildContext context) {
-    Color taskColor = getTaskColor(itemModel.taskType);
-    Color taskColorBorder = getTaskColorBorder(itemModel.taskType);
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-      margin: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: taskColor,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(5),
-        ),
-        border: Border.all(
-          color: taskColorBorder,
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                itemModel.title,
-                style:
-                    const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              Row(
-                children: [
-                  const Icon(
-                    Icons.calendar_month,
-                    size: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      itemModel.releaseDateFormatted(),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const Column(
-            children: [],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class TabCardWidget extends StatelessWidget {
   const TabCardWidget({
     super.key,
@@ -128,6 +68,7 @@ class TabCardWidget extends StatelessWidget {
   final ItemModel itemModel;
   @override
   Widget build(BuildContext context) {
+    bool isChecked = itemModel.isChecked;
     Color taskColor = getTaskColor(itemModel.taskType);
 
     return Padding(
@@ -158,8 +99,13 @@ class TabCardWidget extends StatelessWidget {
             ],
           ),
           trailing: Checkbox(
-            value: false,
-            onChanged: (bool? newValue) {},
+            value: isChecked,
+            onChanged: (value) {
+              context
+                  .read<TabScreenCubit>()
+                  .updateCheckbox(documentID: itemModel.id, isChecked: value!);
+            },
+            activeColor: Colors.green,
           ),
         ),
       ),

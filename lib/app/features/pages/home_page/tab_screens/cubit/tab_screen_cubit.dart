@@ -53,9 +53,24 @@ class TabScreenCubit extends Cubit<TabScreenState> {
       emit(
         TabScreenState(
           status: Status.error,
+          errorMessage: error.toString(),
         ),
       );
       start();
+    }
+  }
+
+  Future<void> updateCheckbox(
+      {required String documentID, required bool isChecked}) async {
+    try {
+      _itemsRepository.update(id: documentID, isChecked: isChecked);
+    } catch (error) {
+      emit(
+        TabScreenState(
+          status: Status.error,
+          errorMessage: error.toString(),
+        ),
+      );
     }
   }
 
