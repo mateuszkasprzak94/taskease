@@ -47,7 +47,7 @@ class TodayTab extends StatelessWidget {
                         .read<TabScreenCubit>()
                         .remove(documentID: itemModel.id);
                   },
-                  child: TabItemWidget(
+                  child: TabCardWidget(
                     itemModel: itemModel,
                   ),
                 ),
@@ -110,10 +110,58 @@ class TabItemWidget extends StatelessWidget {
               ),
             ],
           ),
-          Column(
+          const Column(
             children: [],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class TabCardWidget extends StatelessWidget {
+  const TabCardWidget({
+    super.key,
+    required this.itemModel,
+  });
+
+  final ItemModel itemModel;
+  @override
+  Widget build(BuildContext context) {
+    Color taskColor = getTaskColor(itemModel.taskType);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      child: Card(
+        color: taskColor,
+        child: ListTile(
+          leading: const Icon(Icons.event),
+          title: Text(
+            itemModel.title,
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          subtitle: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(itemModel.releaseDateFormatted()),
+              const Text('Days left:'),
+              Text(
+                itemModel.daysLeft(),
+                style: TextStyle(
+                  color: int.parse(itemModel.daysLeft()) < 5
+                      ? Colors.red
+                      : Colors.green,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          trailing: Checkbox(
+            value: false,
+            onChanged: (bool? newValue) {},
+          ),
+        ),
       ),
     );
   }

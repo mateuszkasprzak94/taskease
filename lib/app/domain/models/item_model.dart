@@ -15,4 +15,8 @@ class ItemModel {
   String releaseDateFormatted() {
     return DateFormat.yMMMMd().format(deadline);
   }
+
+  String daysLeft() {
+    return deadline.difference(DateTime.now()).inDays.toString();
+  }
 }
