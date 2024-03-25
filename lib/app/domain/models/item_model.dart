@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ItemModel {
@@ -19,6 +20,11 @@ class ItemModel {
   }
 
   String daysLeft() {
-    return deadline.difference(DateTime.now()).inDays.toString();
+    final now = DateTime.now();
+    final deadlineDate = DateUtils.dateOnly(deadline);
+    final difference = deadlineDate.difference(DateUtils.dateOnly(now));
+    final differenceInDays = difference.inDays;
+
+    return differenceInDays.toString();
   }
 }
