@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:to_do/app/core/enums.dart';
 import 'package:to_do/app/domain/models/item_model.dart';
@@ -17,17 +18,46 @@ class TabScreenCubit extends Cubit<TabScreenState> {
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
-    emit(TabScreenState(
-      items: [],
-      status: Status.loading,
-      errorMessage: '',
-    ));
+    emit(
+      TabScreenState(
+        allTasks: [],
+        todaysTasks: [],
+        failedTasks: [],
+        completedTasks: [],
+        status: Status.loading,
+        errorMessage: '',
+      ),
+    );
 
     _streamSubscription = _itemsRepository.getItemsStream().listen(
       (items) {
+        final now = DateTime.now();
+        final formattedDate = DateUtils.dateOnly(now);
+
+        final todaysTasks = items
+            .where((item) =>
+                item.deadline.year == formattedDate.year &&
+                item.deadline.month == formattedDate.month &&
+                item.deadline.day == formattedDate.day)
+            .toList();
+
+        final failedTasks = items
+            .where((item) => item.deadline.isBefore(formattedDate))
+            .toList();
+
+        final completedTasks = items.where((item) => item.isChecked).toList();
+
+        final allTasks = items
+            .where((item) =>
+                !todaysTasks.contains(item) && !failedTasks.contains(item))
+            .toList();
+
         emit(
           TabScreenState(
-            items: items,
+            allTasks: allTasks,
+            todaysTasks: todaysTasks,
+            failedTasks: failedTasks,
+            completedTasks: completedTasks,
             status: Status.success,
             errorMessage: '',
           ),
@@ -37,7 +67,10 @@ class TabScreenCubit extends Cubit<TabScreenState> {
         (error) {
           emit(
             TabScreenState(
-              items: [],
+              allTasks: [],
+              todaysTasks: [],
+              failedTasks: [],
+              completedTasks: [],
               status: Status.error,
               errorMessage: error.toString(),
             ),

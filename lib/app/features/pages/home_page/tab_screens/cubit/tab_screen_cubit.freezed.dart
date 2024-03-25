@@ -16,7 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TabScreenState {
-  List<ItemModel> get items => throw _privateConstructorUsedError;
+  List<ItemModel> get allTasks => throw _privateConstructorUsedError;
+  List<ItemModel> get todaysTasks => throw _privateConstructorUsedError;
+  List<ItemModel> get failedTasks => throw _privateConstructorUsedError;
+  List<ItemModel> get completedTasks => throw _privateConstructorUsedError;
   dynamic get status => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
 
@@ -31,7 +34,13 @@ abstract class $TabScreenStateCopyWith<$Res> {
           TabScreenState value, $Res Function(TabScreenState) then) =
       _$TabScreenStateCopyWithImpl<$Res, TabScreenState>;
   @useResult
-  $Res call({List<ItemModel> items, dynamic status, String? errorMessage});
+  $Res call(
+      {List<ItemModel> allTasks,
+      List<ItemModel> todaysTasks,
+      List<ItemModel> failedTasks,
+      List<ItemModel> completedTasks,
+      dynamic status,
+      String? errorMessage});
 }
 
 /// @nodoc
@@ -47,14 +56,29 @@ class _$TabScreenStateCopyWithImpl<$Res, $Val extends TabScreenState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? items = null,
+    Object? allTasks = null,
+    Object? todaysTasks = null,
+    Object? failedTasks = null,
+    Object? completedTasks = null,
     Object? status = freezed,
     Object? errorMessage = freezed,
   }) {
     return _then(_value.copyWith(
-      items: null == items
-          ? _value.items
-          : items // ignore: cast_nullable_to_non_nullable
+      allTasks: null == allTasks
+          ? _value.allTasks
+          : allTasks // ignore: cast_nullable_to_non_nullable
+              as List<ItemModel>,
+      todaysTasks: null == todaysTasks
+          ? _value.todaysTasks
+          : todaysTasks // ignore: cast_nullable_to_non_nullable
+              as List<ItemModel>,
+      failedTasks: null == failedTasks
+          ? _value.failedTasks
+          : failedTasks // ignore: cast_nullable_to_non_nullable
+              as List<ItemModel>,
+      completedTasks: null == completedTasks
+          ? _value.completedTasks
+          : completedTasks // ignore: cast_nullable_to_non_nullable
               as List<ItemModel>,
       status: freezed == status
           ? _value.status
@@ -76,7 +100,13 @@ abstract class _$$TabScreenStateImplCopyWith<$Res>
       __$$TabScreenStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<ItemModel> items, dynamic status, String? errorMessage});
+  $Res call(
+      {List<ItemModel> allTasks,
+      List<ItemModel> todaysTasks,
+      List<ItemModel> failedTasks,
+      List<ItemModel> completedTasks,
+      dynamic status,
+      String? errorMessage});
 }
 
 /// @nodoc
@@ -90,14 +120,29 @@ class __$$TabScreenStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? items = null,
+    Object? allTasks = null,
+    Object? todaysTasks = null,
+    Object? failedTasks = null,
+    Object? completedTasks = null,
     Object? status = freezed,
     Object? errorMessage = freezed,
   }) {
     return _then(_$TabScreenStateImpl(
-      items: null == items
-          ? _value._items
-          : items // ignore: cast_nullable_to_non_nullable
+      allTasks: null == allTasks
+          ? _value._allTasks
+          : allTasks // ignore: cast_nullable_to_non_nullable
+              as List<ItemModel>,
+      todaysTasks: null == todaysTasks
+          ? _value._todaysTasks
+          : todaysTasks // ignore: cast_nullable_to_non_nullable
+              as List<ItemModel>,
+      failedTasks: null == failedTasks
+          ? _value._failedTasks
+          : failedTasks // ignore: cast_nullable_to_non_nullable
+              as List<ItemModel>,
+      completedTasks: null == completedTasks
+          ? _value._completedTasks
+          : completedTasks // ignore: cast_nullable_to_non_nullable
               as List<ItemModel>,
       status: freezed == status ? _value.status! : status,
       errorMessage: freezed == errorMessage
@@ -112,18 +157,51 @@ class __$$TabScreenStateImplCopyWithImpl<$Res>
 
 class _$TabScreenStateImpl implements _TabScreenState {
   _$TabScreenStateImpl(
-      {final List<ItemModel> items = const [],
+      {final List<ItemModel> allTasks = const [],
+      final List<ItemModel> todaysTasks = const [],
+      final List<ItemModel> failedTasks = const [],
+      final List<ItemModel> completedTasks = const [],
       this.status = Status.initial,
       this.errorMessage})
-      : _items = items;
+      : _allTasks = allTasks,
+        _todaysTasks = todaysTasks,
+        _failedTasks = failedTasks,
+        _completedTasks = completedTasks;
 
-  final List<ItemModel> _items;
+  final List<ItemModel> _allTasks;
   @override
   @JsonKey()
-  List<ItemModel> get items {
-    if (_items is EqualUnmodifiableListView) return _items;
+  List<ItemModel> get allTasks {
+    if (_allTasks is EqualUnmodifiableListView) return _allTasks;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_items);
+    return EqualUnmodifiableListView(_allTasks);
+  }
+
+  final List<ItemModel> _todaysTasks;
+  @override
+  @JsonKey()
+  List<ItemModel> get todaysTasks {
+    if (_todaysTasks is EqualUnmodifiableListView) return _todaysTasks;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_todaysTasks);
+  }
+
+  final List<ItemModel> _failedTasks;
+  @override
+  @JsonKey()
+  List<ItemModel> get failedTasks {
+    if (_failedTasks is EqualUnmodifiableListView) return _failedTasks;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_failedTasks);
+  }
+
+  final List<ItemModel> _completedTasks;
+  @override
+  @JsonKey()
+  List<ItemModel> get completedTasks {
+    if (_completedTasks is EqualUnmodifiableListView) return _completedTasks;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_completedTasks);
   }
 
   @override
@@ -134,7 +212,7 @@ class _$TabScreenStateImpl implements _TabScreenState {
 
   @override
   String toString() {
-    return 'TabScreenState(items: $items, status: $status, errorMessage: $errorMessage)';
+    return 'TabScreenState(allTasks: $allTasks, todaysTasks: $todaysTasks, failedTasks: $failedTasks, completedTasks: $completedTasks, status: $status, errorMessage: $errorMessage)';
   }
 
   @override
@@ -142,7 +220,13 @@ class _$TabScreenStateImpl implements _TabScreenState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TabScreenStateImpl &&
-            const DeepCollectionEquality().equals(other._items, _items) &&
+            const DeepCollectionEquality().equals(other._allTasks, _allTasks) &&
+            const DeepCollectionEquality()
+                .equals(other._todaysTasks, _todaysTasks) &&
+            const DeepCollectionEquality()
+                .equals(other._failedTasks, _failedTasks) &&
+            const DeepCollectionEquality()
+                .equals(other._completedTasks, _completedTasks) &&
             const DeepCollectionEquality().equals(other.status, status) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage));
@@ -151,7 +235,10 @@ class _$TabScreenStateImpl implements _TabScreenState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(_items),
+      const DeepCollectionEquality().hash(_allTasks),
+      const DeepCollectionEquality().hash(_todaysTasks),
+      const DeepCollectionEquality().hash(_failedTasks),
+      const DeepCollectionEquality().hash(_completedTasks),
       const DeepCollectionEquality().hash(status),
       errorMessage);
 
@@ -165,12 +252,21 @@ class _$TabScreenStateImpl implements _TabScreenState {
 
 abstract class _TabScreenState implements TabScreenState {
   factory _TabScreenState(
-      {final List<ItemModel> items,
+      {final List<ItemModel> allTasks,
+      final List<ItemModel> todaysTasks,
+      final List<ItemModel> failedTasks,
+      final List<ItemModel> completedTasks,
       final dynamic status,
       final String? errorMessage}) = _$TabScreenStateImpl;
 
   @override
-  List<ItemModel> get items;
+  List<ItemModel> get allTasks;
+  @override
+  List<ItemModel> get todaysTasks;
+  @override
+  List<ItemModel> get failedTasks;
+  @override
+  List<ItemModel> get completedTasks;
   @override
   dynamic get status;
   @override
