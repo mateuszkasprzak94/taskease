@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "834363154845",
-    "project_id": "to-do-235a3",
-    "storage_bucket": "to-do-235a3.appspot.com"
+    "project_number": "677898029679",
+    "project_id": "to-do-227bd",
+    "storage_bucket": "to-do-227bd.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:834363154845:android:41e13bd36c51ed7e100f74",
+        "mobilesdk_app_id": "1:677898029679:android:e5773e009eae95365bdb9a",
         "android_client_info": {
           "package_name": "com.mateuszkasprzak.to_do"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC7CKiw7b5awSHYEZkmewG1zTIUSzpJWeM"
+          "current_key": "AIzaSyBAwSW5_OVmNBunl804FWO0PBrcR8Xdick"
         }
       ],
       "services": {
