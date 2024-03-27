@@ -4,9 +4,11 @@ import 'package:to_do/app/core/config.dart';
 import 'package:to_do/app/cubit/auth_cubit.dart';
 import 'package:to_do/app/domain/repositories/items_repository.dart';
 import 'package:to_do/app/features/auth_page/login_page/auth_page.dart';
-import 'package:to_do/app/features/pages/home_page/home_page.dart';
 import 'package:to_do/app/features/auth_page/welcome_page/welcome_page.dart';
+import 'package:to_do/app/features/pages/home_page/home_page.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/cubit/tab_screen_cubit.dart';
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -29,6 +31,10 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: const WelcomePage(),
+        navigatorKey: navigatorKey,
+        routes: {
+          '/notification_screen': (context) => const RootPage(),
+        },
       ),
     );
   }
