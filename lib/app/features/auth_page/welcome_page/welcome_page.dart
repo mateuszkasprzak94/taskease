@@ -48,7 +48,7 @@ class WelcomePage extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => const RootPage(),
+                    builder: (_) => const RootPage(action: 'login'),
                   ),
                 );
               },
@@ -59,7 +59,7 @@ class WelcomePage extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => const RootPage(),
+                    builder: (_) => const RootPage(action: 'signup'),
                   ),
                 );
               },

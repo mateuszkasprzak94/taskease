@@ -16,6 +16,7 @@ class TabCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isChecked = itemModel.isChecked;
     Color taskColor = getTaskColor(itemModel.taskType);
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -30,15 +31,25 @@ class TabCardWidget extends StatelessWidget {
           subtitle: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(itemModel.releaseDateFormatted()),
-              const Text('Days left:'),
+              Text(
+                itemModel.releaseDateFormatted(),
+                style: TextStyle(
+                  fontSize: screenWidth / 29,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                'Days left:',
+                style: TextStyle(
+                    fontSize: screenWidth / 28, fontStyle: FontStyle.italic),
+              ),
               Text(
                 itemModel.daysLeft(),
                 style: TextStyle(
                   color: int.parse(itemModel.daysLeft()) < 5
                       ? Colors.red
                       : Colors.green,
-                  fontSize: 20.0,
+                  fontSize: screenWidth / 23,
                   fontWeight: FontWeight.bold,
                 ),
               ),

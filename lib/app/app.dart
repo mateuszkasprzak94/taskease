@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         home: const WelcomePage(),
         navigatorKey: navigatorKey,
         routes: {
-          '/notification_screen': (context) => const RootPage(),
+          '/notification_screen': (context) => const WelcomePage(),
         },
       ),
     );
@@ -43,7 +43,10 @@ class MyApp extends StatelessWidget {
 class RootPage extends StatelessWidget {
   const RootPage({
     super.key,
+    required this.action,
   });
+
+  final String action;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +54,7 @@ class RootPage extends StatelessWidget {
       builder: (context, state) {
         final user = state.user;
         if (user == null) {
-          return const AuthPage();
+          return AuthPage(action: action);
         }
         return HomePage(user: user);
       },

@@ -5,7 +5,9 @@ import 'package:to_do/app/features/auth_page/register_page/register_page.dart';
 class AuthPage extends StatefulWidget {
   const AuthPage({
     super.key,
+    required this.action,
   });
+  final String action;
 
   @override
   State<AuthPage> createState() => _AuthPageState();
@@ -13,6 +15,13 @@ class AuthPage extends StatefulWidget {
 
 class _AuthPageState extends State<AuthPage> {
   bool showLoginPage = true;
+
+  @override
+  void initState() {
+    super.initState();
+    showLoginPage =
+        widget.action == 'login'; // Initialize showLoginPage based on action
+  }
 
   void toggleScreens() {
     setState(() {

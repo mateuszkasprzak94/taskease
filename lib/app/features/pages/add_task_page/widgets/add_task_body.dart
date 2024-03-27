@@ -3,6 +3,7 @@ import 'package:to_do/app/widgets/animations/animation.dart';
 
 class AddTaskBody extends StatelessWidget {
   const AddTaskBody({
+    super.key,
     required this.onDeadlineChanged,
     required this.onTitleChanged,
     required this.onTypeChanged,
