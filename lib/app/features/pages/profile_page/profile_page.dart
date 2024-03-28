@@ -49,8 +49,39 @@ class ProfilePage extends StatelessWidget {
                 title: 'Delete',
                 icon: Icons.delete,
                 onTap: () {
-                  context.read<AuthCubit>().deleteUserAccount();
-                  Navigator.of(context).pop();
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext child) {
+                      return AlertDialog(
+                        title: const Text('Delete your Account?'),
+                        content: const Text(
+                          'If you select Delete we will delete your account on our server.',
+                        ),
+                        actions: [
+                          TextButton(
+                            child: const Text(
+                              'Cancel',
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          TextButton(
+                            child: const Text(
+                              'Delete',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                            onPressed: () {
+                              // Call the delete account function
+                              context.read<AuthCubit>().deleteUserAccount();
+
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
               ),
             ),
