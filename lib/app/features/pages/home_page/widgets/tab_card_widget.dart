@@ -18,6 +18,8 @@ class TabCardWidget extends StatelessWidget {
     Color taskColor = getTaskColor(itemModel.taskType);
     double screenWidth = MediaQuery.of(context).size.width;
 
+    bool isFailed = int.parse(itemModel.daysLeft()) <= -1;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: Card(
@@ -39,7 +41,7 @@ class TabCardWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                'Days left:',
+                isFailed ? 'Overdue:' : 'Days left:',
                 style: TextStyle(
                     fontSize: screenWidth / 28, fontStyle: FontStyle.italic),
               ),
@@ -55,15 +57,16 @@ class TabCardWidget extends StatelessWidget {
               ),
             ],
           ),
-          trailing: Checkbox(
-            value: isChecked,
-            onChanged: (value) {
-              context
-                  .read<TabScreenCubit>()
-                  .updateCheckbox(documentID: itemModel.id, isChecked: value!);
-            },
-            activeColor: Colors.green,
-          ),
+          trailing: isFailed
+              ? null
+              : Checkbox(
+                  value: isChecked,
+                  onChanged: (value) {
+                    context.read<TabScreenCubit>().updateCheckbox(
+                        documentID: itemModel.id, isChecked: value!);
+                  },
+                  activeColor: Colors.green,
+                ),
         ),
       ),
     );
