@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBAwSW5_OVmNBunl804FWO0PBrcR8Xdick',
-    appId: '1:677898029679:android:e5773e009eae95365bdb9a',
-    messagingSenderId: '677898029679',
-    projectId: 'to-do-227bd',
-    storageBucket: 'to-do-227bd.appspot.com',
+    apiKey: 'AIzaSyDGMW636jH4OC9YGDMuqW4NCdcAzo8d4GE',
+    appId: '1:713809040277:android:fabceef57adf174b7c1c9c',
+    messagingSenderId: '713809040277',
+    projectId: 'taskease-94',
+    storageBucket: 'taskease-94.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBXrV7u9Lp1KT89YHVX1067XNdUV-bYEDU',
-    appId: '1:677898029679:ios:3c8c86275e2bc9a25bdb9a',
-    messagingSenderId: '677898029679',
-    projectId: 'to-do-227bd',
-    storageBucket: 'to-do-227bd.appspot.com',
+    apiKey: 'AIzaSyCfWU7-gt69EdBN1IOPTYYuLRLvjOsEask',
+    appId: '1:713809040277:ios:f28d9535d3ae81417c1c9c',
+    messagingSenderId: '713809040277',
+    projectId: 'taskease-94',
+    storageBucket: 'taskease-94.appspot.com',
     iosBundleId: 'com.mateuszkasprzak.toDo',
   );
 }

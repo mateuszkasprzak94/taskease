@@ -10,45 +10,47 @@ class TodayTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: BlocBuilder<TabScreenCubit, TabScreenState>(
-      builder: (context, state) {
-        final itemModels = state.todaysTasks;
+    return Scaffold(
+      body: BlocBuilder<TabScreenCubit, TabScreenState>(
+        builder: (context, state) {
+          final itemModels = state.todaysTasks;
 
-        return ListView(
-          children: [
-            for (final itemModel in itemModels)
-              Dismissible(
-                key: ValueKey(itemModel.id),
-                background: const DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                  ),
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 32.0),
-                      child: Icon(
-                        Icons.delete,
+          return ListView(
+            children: [
+              for (final itemModel in itemModels)
+                Dismissible(
+                  key: ValueKey(itemModel.id),
+                  background: const DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                    ),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 32.0),
+                        child: Icon(
+                          Icons.delete,
+                        ),
                       ),
                     ),
                   ),
+                  confirmDismiss: (direction) async {
+                    // only from right to left
+                    return direction == DismissDirection.endToStart;
+                  },
+                  onDismissed: (direction) {
+                    context
+                        .read<TabScreenCubit>()
+                        .remove(documentID: itemModel.id);
+                  },
+                  child: TabCardWidget(
+                    itemModel: itemModel,
+                  ),
                 ),
-                confirmDismiss: (direction) async {
-                  // only from right to left
-                  return direction == DismissDirection.endToStart;
-                },
-                onDismissed: (direction) {
-                  context
-                      .read<TabScreenCubit>()
-                      .remove(documentID: itemModel.id);
-                },
-                child: TabCardWidget(
-                  itemModel: itemModel,
-                ),
-              ),
-          ],
-        );
-      },
-    ));
+            ],
+          );
+        },
+      ),
+    );
   }
 }

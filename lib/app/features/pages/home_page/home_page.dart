@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:to_do/app/domain/repositories/items_repository.dart';
 import 'package:to_do/app/features/pages/add_task_page/add_task_page.dart';
+import 'package:to_do/app/features/pages/home_page/tab_screens/cubit/tab_screen_cubit.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/failed/failed.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/task_done/done.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/today/today.dart';
@@ -36,86 +39,89 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) => DefaultTabController(
         length: 4,
-        child: Scaffold(
-          body: SafeArea(
-            child: Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: FadeInAnimation(
-                        delay: 1,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              formattedDate,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ProfilePage(email: widget.user.email),
-                                  ),
-                                );
-                              },
-                              icon: const Icon(Icons.person),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const FadeInAnimation(
-                      delay: 1.3,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Here's Today's Update",
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const FadeInAnimation(delay: 1.6, child: TabBarWidget()),
-                    const Expanded(
-                      child: FadeInAnimation(
-                        delay: 1.6,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            top: 20,
-                            bottom: 80,
-                          ),
-                          child: TabBarView(
-                            physics: NeverScrollableScrollPhysics(),
+        child: BlocProvider(
+          create: (context) => TabScreenCubit(ItemsRepository())..start(),
+          child: Scaffold(
+            body: SafeArea(
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: FadeInAnimation(
+                          delay: 1,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TodayTab(),
-                              UpcomingTab(),
-                              TaskDoneTab(),
-                              FailedTab(),
+                              Text(
+                                formattedDate,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProfilePage(email: widget.user.email),
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(Icons.person),
+                              ),
                             ],
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const FadeInAnimation(
-                  delay: 1.9,
-                  child: AddTaskButton(),
-                ),
-              ],
+                      const FadeInAnimation(
+                        delay: 1.3,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Here's Today's Update",
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const FadeInAnimation(delay: 1.6, child: TabBarWidget()),
+                      const Expanded(
+                        child: FadeInAnimation(
+                          delay: 1.6,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              top: 20,
+                              bottom: 80,
+                            ),
+                            child: TabBarView(
+                              physics: NeverScrollableScrollPhysics(),
+                              children: [
+                                TodayTab(),
+                                UpcomingTab(),
+                                TaskDoneTab(),
+                                FailedTab(),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const FadeInAnimation(
+                    delay: 1.9,
+                    child: AddTaskButton(),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
