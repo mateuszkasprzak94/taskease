@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do/app/core/enums.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/cubit/tab_screen_cubit.dart';
 import 'package:to_do/app/features/pages/home_page/widgets/tab_card_widget.dart';
 
@@ -14,6 +15,21 @@ class UpcomingTab extends StatelessWidget {
       body: BlocBuilder<TabScreenCubit, TabScreenState>(
         builder: (context, state) {
           final itemModels = state.allTasks;
+          final errorMessage = state.errorMessage ?? 'Unknown error';
+
+          if (state.status == Status.error) {
+            return Center(
+              child: Text(errorMessage),
+            );
+          }
+
+          if (state.status == Status.loading) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: Colors.purple,
+              ),
+            );
+          }
 
           return ListView(
             children: [

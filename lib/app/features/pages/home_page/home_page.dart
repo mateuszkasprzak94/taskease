@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:to_do/app/core/enums.dart';
 import 'package:to_do/app/domain/repositories/items_repository.dart';
 import 'package:to_do/app/features/pages/add_task_page/add_task_page.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/cubit/tab_screen_cubit.dart';
@@ -44,24 +43,6 @@ class _HomePageState extends State<HomePage> {
           create: (context) => TabScreenCubit(ItemsRepository())..start(),
           child: BlocBuilder<TabScreenCubit, TabScreenState>(
             builder: (context, state) {
-              final errorMessage = state.errorMessage ?? 'Unknown error';
-              if (state.status == Status.error) {
-                return Scaffold(
-                  body: Center(
-                    child: Text(
-                        'An unexpected problem has occurred: $errorMessage'),
-                  ),
-                );
-              }
-
-              if (state.status == Status.loading) {
-                return const Scaffold(
-                  body: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              }
-
               return Scaffold(
                 body: SafeArea(
                   child: Stack(
