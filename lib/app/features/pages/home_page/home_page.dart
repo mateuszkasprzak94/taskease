@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:to_do/app/domain/repositories/items_repository.dart';
 import 'package:to_do/app/features/pages/add_task_page/add_task_page.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/cubit/tab_screen_cubit.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/failed/failed.dart';
@@ -11,6 +10,7 @@ import 'package:to_do/app/features/pages/home_page/tab_screens/today/today.dart'
 import 'package:to_do/app/features/pages/home_page/tab_screens/upcoming/upcoming.dart';
 import 'package:to_do/app/features/pages/home_page/widgets/tabbar.dart';
 import 'package:to_do/app/features/pages/profile_page/profile_page.dart';
+import 'package:to_do/app/injection_container.dart';
 import 'package:to_do/app/widgets/animations/animation.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,8 +39,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) => DefaultTabController(
         length: 4,
-        child: BlocProvider(
-          create: (context) => TabScreenCubit(ItemsRepository())..start(),
+        child: BlocProvider<TabScreenCubit>(
+          create: (context) => getIt()..start(),
           child: BlocBuilder<TabScreenCubit, TabScreenState>(
             builder: (context, state) {
               return Scaffold(
