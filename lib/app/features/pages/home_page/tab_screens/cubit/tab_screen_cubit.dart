@@ -41,11 +41,13 @@ class TabScreenCubit extends Cubit<TabScreenState> {
                 item.deadline.day == formattedDate.day)
             .toList();
 
-        final failedTasks = items
-            .where((item) => item.deadline.isBefore(formattedDate))
-            .toList();
-
         final completedTasks = items.where((item) => item.isChecked).toList();
+
+        final failedTasks = items
+            .where((item) =>
+                item.deadline.isBefore(formattedDate) &&
+                !completedTasks.contains(item))
+            .toList();
 
         final allTasks = items
             .where((item) =>

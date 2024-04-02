@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do/app/core/constants.dart';
 import 'package:to_do/app/domain/models/item_model.dart';
@@ -40,19 +42,25 @@ class TabCardWidget extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              Text(
-                isFailed ? 'Overdue:' : 'Days left:',
-                style: TextStyle(
-                    fontSize: screenWidth / 28, fontStyle: FontStyle.italic),
+              Visibility(
+                visible: !isChecked,
+                child: Text(
+                  isFailed ? 'Overdue:' : 'Days left:',
+                  style: TextStyle(
+                      fontSize: screenWidth / 28, fontStyle: FontStyle.italic),
+                ),
               ),
-              Text(
-                itemModel.daysLeft(),
-                style: TextStyle(
-                  color: int.parse(itemModel.daysLeft()) < 5
-                      ? Colors.red
-                      : Colors.green,
-                  fontSize: screenWidth / 23,
-                  fontWeight: FontWeight.bold,
+              Visibility(
+                visible: !isChecked,
+                child: Text(
+                  itemModel.daysLeft(),
+                  style: TextStyle(
+                    color: int.parse(itemModel.daysLeft()) < 3
+                        ? Colors.red
+                        : Colors.green,
+                    fontSize: screenWidth / 23,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],

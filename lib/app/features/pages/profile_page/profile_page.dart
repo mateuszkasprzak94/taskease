@@ -76,6 +76,7 @@ class ProfilePage extends StatelessWidget {
                               context.read<AuthCubit>().deleteUserAccount();
 
                               Navigator.of(context).pop();
+                              Navigator.of(context).pop();
                             },
                           ),
                         ],
