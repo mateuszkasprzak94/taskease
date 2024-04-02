@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do/app/core/enums.dart';
-import 'package:to_do/app/domain/repositories/items_repository.dart';
 import 'package:to_do/app/features/pages/add_task_page/cubit/add_task_cubit.dart';
 import 'package:to_do/app/features/pages/add_task_page/widgets/add_task_body.dart';
 import 'package:to_do/app/features/pages/add_task_page/widgets/save_task_button.dart';
+import 'package:to_do/app/injection_container.dart';
 import 'package:to_do/app/widgets/animations/animation.dart';
 
 class AddTask extends StatefulWidget {
@@ -31,10 +31,8 @@ class _AddTaskState extends State<AddTask> {
   @override
   Widget build(BuildContext context) {
     final values = _deadline == null || _title == null || _taskType == null;
-    return BlocProvider(
-      create: (context) => AddTaskCubit(
-        ItemsRepository(),
-      ),
+    return BlocProvider<AddTaskCubit>(
+      create: (context) => getIt(),
       child: BlocConsumer<AddTaskCubit, AddTaskState>(
         listener: (context, state) {
           final errorMessage = state.errorMessage ?? 'Unknown error';

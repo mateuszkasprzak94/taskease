@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:to_do/app/app.dart';
 import 'package:to_do/app/core/config.dart';
+import 'package:to_do/app/injection_container.dart';
 import 'package:to_do/app/notifications/firebase_api.dart';
 import 'package:to_do/firebase_options.dart';
 
@@ -20,6 +21,7 @@ void main() async {
   );
   await FirebaseApi().initNotifications();
 
+  configureDependencies();
   runApp(
     const MyApp(),
   );
