@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:to_do/app/core/enums.dart';
 import 'package:to_do/app/domain/repositories/items_repository.dart';
 import 'package:to_do/app/features/pages/add_task_page/add_task_page.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/cubit/tab_screen_cubit.dart';
@@ -41,88 +42,112 @@ class _HomePageState extends State<HomePage> {
         length: 4,
         child: BlocProvider(
           create: (context) => TabScreenCubit(ItemsRepository())..start(),
-          child: Scaffold(
-            body: SafeArea(
-              child: Stack(
-                alignment: Alignment.bottomCenter,
-                children: [
-                  Column(
+          child: BlocBuilder<TabScreenCubit, TabScreenState>(
+            builder: (context, state) {
+              final errorMessage = state.errorMessage ?? 'Unknown error';
+              if (state.status == Status.error) {
+                return Scaffold(
+                  body: Center(
+                    child: Text(
+                        'An unexpected problem has occurred: $errorMessage'),
+                  ),
+                );
+              }
+
+              if (state.status == Status.loading) {
+                return const Scaffold(
+                  body: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+
+              return Scaffold(
+                body: SafeArea(
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: FadeInAnimation(
-                          delay: 1,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                formattedDate,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  decoration: TextDecoration.underline,
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: FadeInAnimation(
+                              delay: 1,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    formattedDate,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) => ProfilePage(
+                                              email: widget.user.email),
+                                        ),
+                                      );
+                                    },
+                                    icon: const Icon(Icons.person),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const FadeInAnimation(
+                            delay: 1.3,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Here's Today's Update",
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProfilePage(email: widget.user.email),
-                                    ),
-                                  );
-                                },
-                                icon: const Icon(Icons.person),
-                              ),
-                            ],
+                            ),
                           ),
-                        ),
+                          const FadeInAnimation(
+                              delay: 1.6, child: TabBarWidget()),
+                          const Expanded(
+                            child: FadeInAnimation(
+                              delay: 1.6,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  top: 20,
+                                  bottom: 80,
+                                ),
+                                child: TabBarView(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  children: [
+                                    TodayTab(),
+                                    UpcomingTab(),
+                                    TaskDoneTab(),
+                                    FailedTab(),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       const FadeInAnimation(
-                        delay: 1.3,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Here's Today's Update",
-                              style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const FadeInAnimation(delay: 1.6, child: TabBarWidget()),
-                      const Expanded(
-                        child: FadeInAnimation(
-                          delay: 1.6,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              top: 20,
-                              bottom: 80,
-                            ),
-                            child: TabBarView(
-                              physics: NeverScrollableScrollPhysics(),
-                              children: [
-                                TodayTab(),
-                                UpcomingTab(),
-                                TaskDoneTab(),
-                                FailedTab(),
-                              ],
-                            ),
-                          ),
-                        ),
+                        delay: 1.9,
+                        child: AddTaskButton(),
                       ),
                     ],
                   ),
-                  const FadeInAnimation(
-                    delay: 1.9,
-                    child: AddTaskButton(),
-                  ),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           ),
         ),
       );
