@@ -37,6 +37,8 @@ dev_dependencies:
   json_serializable: ^6.7.1
   flutter_launcher_icons: ^0.13.1
   injectable_generator: ^2.6.1
+  mocktail: ^1.0.3
+  bloc_test: ^9.1.7
 
 flutter_launcher_icons:
   android: "launcher_icon"
