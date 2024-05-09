@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:to_do/app/features/pages/home_page/tab_screens/failed/failed.dar
 import 'package:to_do/app/features/pages/home_page/tab_screens/task_done/done.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/today/today.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/upcoming/upcoming.dart';
+import 'package:to_do/app/features/pages/home_page/widgets/tab_info.dart';
 import 'package:to_do/app/features/pages/home_page/widgets/tabbar.dart';
 import 'package:to_do/app/features/pages/profile_page/profile_page.dart';
 import 'package:to_do/app/injection_container.dart';
@@ -51,54 +53,47 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Column(
                         children: [
-                          Expanded(
-                            flex: 1,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: FadeInAnimation(
-                                delay: 1,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      formattedDate,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        decoration: TextDecoration.underline,
-                                      ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: FadeInAnimation(
+                              delay: 1,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    formattedDate,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      decoration: TextDecoration.underline,
                                     ),
-                                    IconButton(
-                                      onPressed: () {
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            builder: (context) => ProfilePage(
-                                                email: widget.user.email),
-                                          ),
-                                        );
-                                      },
-                                      icon: const Icon(Icons.person),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) => ProfilePage(
+                                              email: widget.user.email),
+                                        ),
+                                      );
+                                    },
+                                    icon: const Icon(Icons.person),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                          const Expanded(
-                            flex: 1,
-                            child: FadeInAnimation(
-                              delay: 1.3,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    "Here's Today's Update",
-                                    style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                          const FadeInAnimation(
+                            delay: 1.3,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Here's Today's Update",
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
@@ -106,11 +101,12 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const Expanded(
                             flex: 1,
-                            child: FadeInAnimation(
-                                delay: 1.6, child: TabBarWidget()),
+                            child: TabInfo(),
                           ),
+                          const FadeInAnimation(
+                              delay: 1.6, child: TabBarWidget()),
                           const Expanded(
-                            flex: 15,
+                            flex: 6,
                             child: FadeInAnimation(
                               delay: 1.6,
                               child: Padding(
