@@ -106,8 +106,10 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const Expanded(
                             flex: 2,
-                            child:
-                                FadeInAnimation(delay: 1.6, child: TabInfo()),
+                            child: FadeInAnimation(
+                              delay: 1.6,
+                              child: TabInfo(),
+                            ),
                           ),
                           const FadeInAnimation(
                               delay: 1.6, child: TabBarWidget()),

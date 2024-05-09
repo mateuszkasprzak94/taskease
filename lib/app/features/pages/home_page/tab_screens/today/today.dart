@@ -31,6 +31,29 @@ class TodayTab extends StatelessWidget {
             );
           }
 
+          if (itemModels.isEmpty) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.check_circle,
+                    color: Colors.green,
+                    size: 50,
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    'No tasks for today',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey.shade800),
+                  ),
+                ],
+              ),
+            );
+          }
+
           return ListView(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             children: [
