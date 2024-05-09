@@ -25,7 +25,9 @@ class TabInfo extends StatelessWidget {
 
           if (state.status == Status.loading) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: Colors.purple,
+              ),
             );
           }
 
