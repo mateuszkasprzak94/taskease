@@ -56,8 +56,14 @@ class TabScreenCubit extends Cubit<TabScreenState> {
                 !failedTasks.contains(item))
             .toList();
 
+        final totalTasks = items.length;
+
+        final remainingTasks = items.where((item) => !item.isChecked).toList();
+
         emit(
           TabScreenState(
+            remainingTasks: remainingTasks,
+            totalTasks: totalTasks,
             allTasks: allTasks,
             todaysTasks: todaysTasks,
             failedTasks: failedTasks,
