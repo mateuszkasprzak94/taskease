@@ -20,60 +20,67 @@ class TabCardWidget extends StatelessWidget {
 
     bool isFailed = int.parse(itemModel.daysLeft()) <= -1;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-      child: Card(
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+              color: Colors.grey.shade400,
+              offset: const Offset(-0.5, 1),
+              blurRadius: 1),
+        ],
+        borderRadius: BorderRadius.circular(15),
         color: taskColor,
-        child: ListTile(
-          leading: const Icon(Icons.event),
-          title: Text(
-            itemModel.title,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          subtitle: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                itemModel.releaseDateFormatted(),
-                style: TextStyle(
-                  fontSize: screenWidth / 29,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Visibility(
-                visible: !isChecked,
-                child: Text(
-                  isFailed ? 'Overdue:' : 'Days left:',
-                  style: TextStyle(
-                      fontSize: screenWidth / 28, fontStyle: FontStyle.italic),
-                ),
-              ),
-              Visibility(
-                visible: !isChecked,
-                child: Text(
-                  itemModel.daysLeft(),
-                  style: TextStyle(
-                    color: int.parse(itemModel.daysLeft()) < 3
-                        ? Colors.red
-                        : Colors.green,
-                    fontSize: screenWidth / 23,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          trailing: isFailed
-              ? null
-              : Checkbox(
-                  value: isChecked,
-                  onChanged: (value) {
-                    context.read<TabScreenCubit>().updateCheckbox(
-                        documentID: itemModel.id, isChecked: value!);
-                  },
-                  activeColor: Colors.green,
-                ),
+      ),
+      child: ListTile(
+        leading: const Icon(Icons.event),
+        title: Text(
+          itemModel.title,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
+        subtitle: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              itemModel.releaseDateFormatted(),
+              style: TextStyle(
+                fontSize: screenWidth / 29,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            Visibility(
+              visible: !isChecked,
+              child: Text(
+                isFailed ? 'Overdue:' : 'Days left:',
+                style: TextStyle(
+                    fontSize: screenWidth / 28, fontStyle: FontStyle.italic),
+              ),
+            ),
+            Visibility(
+              visible: !isChecked,
+              child: Text(
+                itemModel.daysLeft(),
+                style: TextStyle(
+                  color: int.parse(itemModel.daysLeft()) < 3
+                      ? Colors.red
+                      : Colors.green,
+                  fontSize: screenWidth / 23,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+        trailing: isFailed
+            ? null
+            : Checkbox(
+                value: isChecked,
+                onChanged: (value) {
+                  context.read<TabScreenCubit>().updateCheckbox(
+                      documentID: itemModel.id, isChecked: value!);
+                },
+                activeColor: Colors.green,
+              ),
       ),
     );
   }

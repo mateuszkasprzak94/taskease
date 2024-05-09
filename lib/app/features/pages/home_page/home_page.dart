@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do/app/features/pages/add_task_page/add_task_page.dart';
@@ -9,6 +8,7 @@ import 'package:to_do/app/features/pages/home_page/tab_screens/failed/failed.dar
 import 'package:to_do/app/features/pages/home_page/tab_screens/task_done/done.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/today/today.dart';
 import 'package:to_do/app/features/pages/home_page/tab_screens/upcoming/upcoming.dart';
+import 'package:to_do/app/features/pages/home_page/widgets/tab_info.dart';
 import 'package:to_do/app/features/pages/home_page/widgets/tabbar.dart';
 import 'package:to_do/app/features/pages/profile_page/profile_page.dart';
 import 'package:to_do/app/injection_container.dart';
@@ -105,14 +105,18 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           const Expanded(
-                            flex: 1,
-                            child: FadeInAnimation(
-                                delay: 1.6, child: TabBarWidget()),
-                          ),
-                          const Expanded(
-                            flex: 15,
+                            flex: 2,
                             child: FadeInAnimation(
                               delay: 1.6,
+                              child: TabInfo(),
+                            ),
+                          ),
+                          const FadeInAnimation(
+                              delay: 1.6, child: TabBarWidget()),
+                          const Expanded(
+                            flex: 11,
+                            child: FadeInAnimation(
+                              delay: 1.9,
                               child: Padding(
                                 padding: EdgeInsets.only(
                                   top: 20,
@@ -133,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                       const FadeInAnimation(
-                        delay: 1.9,
+                        delay: 2.2,
                         child: AddTaskButton(),
                       ),
                     ],

@@ -31,21 +31,51 @@ class TodayTab extends StatelessWidget {
             );
           }
 
+          if (itemModels.isEmpty) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.check_circle,
+                    color: Colors.green,
+                    size: 50,
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    'No tasks for today',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey.shade800),
+                  ),
+                ],
+              ),
+            );
+          }
+
           return ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             children: [
               for (final itemModel in itemModels)
                 Dismissible(
                   key: ValueKey(itemModel.id),
-                  background: const DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                    ),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 32.0),
-                        child: Icon(
-                          Icons.delete,
+                  background: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                        color: Colors.red,
+                      ),
+                      child: const Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 32.0),
+                          child: Icon(
+                            Icons.delete,
+                          ),
                         ),
                       ),
                     ),
