@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do/app/features/pages/add_task_page/add_task_page.dart';
@@ -50,55 +51,66 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: FadeInAnimation(
-                              delay: 1,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    formattedDate,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      decoration: TextDecoration.underline,
+                          Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: FadeInAnimation(
+                                delay: 1,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      formattedDate,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        decoration: TextDecoration.underline,
+                                      ),
                                     ),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) => ProfilePage(
-                                              email: widget.user.email),
-                                        ),
-                                      );
-                                    },
-                                    icon: const Icon(Icons.person),
-                                  ),
-                                ],
+                                    IconButton(
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) => ProfilePage(
+                                                email: widget.user.email),
+                                          ),
+                                        );
+                                      },
+                                      icon: const Icon(Icons.person),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                          const FadeInAnimation(
-                            delay: 1.3,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "Here's Today's Update",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold,
+                          const Expanded(
+                            flex: 1,
+                            child: FadeInAnimation(
+                              delay: 1.3,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "Here's Today's Update",
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          const FadeInAnimation(
-                              delay: 1.6, child: TabBarWidget()),
                           const Expanded(
+                            flex: 1,
+                            child: FadeInAnimation(
+                                delay: 1.6, child: TabBarWidget()),
+                          ),
+                          const Expanded(
+                            flex: 15,
                             child: FadeInAnimation(
                               delay: 1.6,
                               child: Padding(

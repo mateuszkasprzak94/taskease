@@ -24,7 +24,7 @@ class UpcomingTab extends StatelessWidget {
           }
 
           if (state.status == Status.loading) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(
                 color: Colors.purple,
               ),
