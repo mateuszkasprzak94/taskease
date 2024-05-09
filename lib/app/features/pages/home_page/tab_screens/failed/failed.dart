@@ -29,20 +29,27 @@ class FailedTab extends StatelessWidget {
             );
           }
           return ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             children: [
               for (final itemModel in itemModels)
                 Dismissible(
                   key: ValueKey(itemModel.id),
-                  background: const DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                    ),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 32.0),
-                        child: Icon(
-                          Icons.delete,
+                  background: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                        color: Colors.red,
+                      ),
+                      child: const Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 32.0),
+                          child: Icon(
+                            Icons.delete,
+                          ),
                         ),
                       ),
                     ),
