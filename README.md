@@ -10,11 +10,11 @@ TaskEase is a powerful task management app designed to streamline your productiv
 ![3 4](https://github.com/mateuszkasprzak94/taskease/assets/142491717/585efc5b-a194-4825-b4f8-98d12667790e)
 ![5 6](https://github.com/mateuszkasprzak94/taskease/assets/142491717/edffb0bb-b877-43f0-9d5c-9891ee49d1cf)
 
-# <p align="center">Technologies used in the project:</p>
+# <p align="center">💻Technologies used in the project:</p>
 
-- Flutter
-- Dart
-- Firebase
+* Flutter
+* Dart
+* Firebase
 
 
 # <p align="center">Dependencies & Dev_dependencies:</p>
