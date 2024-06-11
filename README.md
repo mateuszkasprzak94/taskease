@@ -6,9 +6,10 @@
 TaskEase is a powerful task management app designed to streamline your productivity. Organize your to-do lists, set deadlines, and track your progress with ease. Stay focused and accomplish more with TaskEase.
 
 # <p align="center">Project Screenshots</p>
-![1 2](https://github.com/mateuszkasprzak94/taskease/assets/142491717/df9b792b-397c-4640-aad6-05f42f0d9a14)
-![3 4](https://github.com/mateuszkasprzak94/taskease/assets/142491717/585efc5b-a194-4825-b4f8-98d12667790e)
-![5 6](https://github.com/mateuszkasprzak94/taskease/assets/142491717/edffb0bb-b877-43f0-9d5c-9891ee49d1cf)
+![1 2](https://github.com/mateuszkasprzak94/taskease/assets/142491717/b648b7d0-674f-4dc8-8c5f-8a2d296c1aaa)
+![3 4](https://github.com/mateuszkasprzak94/taskease/assets/142491717/a1b52a42-2dff-482c-b6e0-5d97374a0481)
+![5 7](https://github.com/mateuszkasprzak94/taskease/assets/142491717/23a7a22c-f2f1-46a3-bd3b-a36c7ef445a3)
+
 
 # <p align="center">💻Technologies used in the project:</p>
 
